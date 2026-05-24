@@ -57,12 +57,12 @@ export const FEATURED_PRODUCT_IMAGES: Record<string, SiteImage> = {
 
 export const CRAFT_COLLAGE_IMAGES: SiteImage[] = [
   {
-    src: "/images/detail-wood-branch.png",
-    alt: "Natural wood branch grain on a LazyCat tree",
+    src: "/images/product-grand.png",
+    alt: "Terracotta carpeted natural wood cat tree",
   },
   {
-    src: "/images/detail-sisal.png",
-    alt: "Sisal rope wrapping on a natural wood branch",
+    src: "/images/tree-beige-sisal.png",
+    alt: "Beige carpeted natural wood cat tree",
   },
 ];
 
