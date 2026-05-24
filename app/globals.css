@@ -1,26 +1,140 @@
 @import "tailwindcss";
 
+@theme {
+  /* Brand Colors */
+  --color-gold: #c9a45e;
+  --color-gold-light: #dfc08a;
+  --color-gold-dark: #a8843e;
+  --color-cream: #f0e8d8;
+  --color-background: #0c0a08;
+
+  /* Brand Fonts (mapped from next/font CSS variables) */
+  --font-playfair: var(--playfair-font);
+  --font-cormorant: var(--cormorant-font);
+  --font-jost: var(--jost-font);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0c0a08;
+  --foreground: #f0e8d8;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0c0a08;
+  color: #f0e8d8;
+  font-family: var(--cormorant-font, 'Georgia', serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+/* Card hover */
+.card-hover {
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-6px);
+  border-color: #c9a45e;
+  box-shadow: 0 16px 40px rgba(201, 164, 94, 0.12);
+}
+
+/* Image zoom on hover */
+.img-zoom {
+  overflow: hidden;
+}
+.img-zoom img {
+  transition: transform 0.6s ease;
+}
+.img-zoom:hover img {
+  transform: scale(1.06);
+}
+
+/* Swatch selected ring */
+.swatch-selected {
+  outline: 2px solid #c9a45e;
+  outline-offset: 2px;
+  transform: scale(1.15);
+}
+
+/* Progress bar segment */
+.progress-segment {
+  transition: background-color 0.2s ease;
+}
+
+/* Accordion transition */
+.accordion-content {
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.35s ease;
+}
+
+/* Gold horizontal rule */
+.gold-rule {
+  width: 56px;
+  height: 1px;
+  background-color: #c9a45e;
+  display: inline-block;
+}
+
+/* Eyebrow label */
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #c9a45e;
+  font-family: var(--jost-font, sans-serif);
+  font-weight: 500;
+}
+
+/* Playfair italic hero headline */
+.hero-italic {
+  font-style: italic;
+  color: #c9a45e;
+}
+
+/* Nav transition */
+.nav-solid {
+  background-color: rgba(12, 10, 8, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201, 164, 94, 0.15);
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid #c9a45e;
+  outline-offset: 2px;
+}
+
+/* Select styling */
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23c9a45e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Stripe button loading */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0,0,0,0.3);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
 }
