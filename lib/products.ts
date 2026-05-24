@@ -108,8 +108,8 @@ export const FEATURED_PRODUCTS: FeaturedProduct[] = [
     badge: "Popular",
     description:
       "Three tiers of handcrafted natural wood, wrapped in sisal and finished with your choice of carpet. The perfect entry into a LazyCat tree.",
-    imageSrc: "https://placehold.co/600x700/1c1917/c9a45e?text=Classic",
-    imageAlt: "Classic 3-level natural wood cat tree",
+    imageSrc: "/images/tree-6-level-tan.png",
+    imageAlt: "Classic natural wood cat tree with tan carpet",
   },
   {
     id: "grand",
@@ -118,8 +118,8 @@ export const FEATURED_PRODUCTS: FeaturedProduct[] = [
     badge: "Bestseller",
     description:
       "Six magnificent platforms rise to create a vertical sanctuary your cat will never want to leave. A statement piece for any room.",
-    imageSrc: "https://placehold.co/600x700/1c1917/c9a45e?text=Grand",
-    imageAlt: "Grand 6-level natural wood cat tree",
+    imageSrc: "/images/tree-7-level-green.png",
+    imageAlt: "Grand six-level natural wood cat tree",
   },
   {
     id: "pinnacle",
@@ -128,30 +128,78 @@ export const FEATURED_PRODUCTS: FeaturedProduct[] = [
     badge: "Signature",
     description:
       "Our most ambitious creation. Eight platforms of reclaimed natural wood, each one unique. A towering testament to feline luxury.",
-    imageSrc: "https://placehold.co/600x700/1c1917/c9a45e?text=Pinnacle",
-    imageAlt: "Pinnacle 8-level natural wood cat tree",
+    imageSrc: "/images/tree-red-orange.png",
+    imageAlt: "Pinnacle eight-level natural wood cat tree",
+  },
+];
+
+// ── Featured Items (homepage cards) ──────────
+export interface FeaturedItem {
+  slug: string;
+  name: string;
+  platforms: number;
+  platformRange: string;
+  image: string;
+  badge: string;
+  description: string;
+  fromPrice: number;
+}
+
+export const FEATURED_ITEMS: FeaturedItem[] = [
+  {
+    slug: "classic",
+    name: "Classic Cat Tree",
+    platforms: 3,
+    platformRange: "2–3 Platforms",
+    image: "/images/product-classic.png",
+    badge: "Entry Level",
+    description:
+      "A beautifully proportioned 2 or 3-level tree — the perfect introduction to LazyCat craftsmanship.",
+    fromPrice: 2000,
+  },
+  {
+    slug: "grand",
+    name: "Grand Cat Tree",
+    platforms: 5,
+    platformRange: "4–6 Platforms",
+    image: "/images/product-grand.png",
+    badge: "Most Popular",
+    description:
+      "Five levels of climbing, lounging, and scratching. The sweet spot between presence and elegance.",
+    fromPrice: 4000,
+  },
+  {
+    slug: "pinnacle",
+    name: "Pinnacle Cat Tree",
+    platforms: 7,
+    platformRange: "7–8 Platforms",
+    image: "/images/product-pinnacle.png",
+    badge: "Signature",
+    description:
+      "A towering statement piece. For the cat that deserves nothing less than extraordinary.",
+    fromPrice: 7000,
   },
 ];
 
 // ── Shop Gallery Images ───────────────────────
 export const GALLERY_IMAGES = [
-  { src: "https://placehold.co/600x400/1c1917/c9a45e?text=Gallery+1", alt: "Natural wood cat tree detail" },
-  { src: "https://placehold.co/600x400/1c1917/c9a45e?text=Gallery+2", alt: "Sisal rope wrapped branch" },
-  { src: "https://placehold.co/600x400/1c1917/c9a45e?text=Gallery+3", alt: "Multi-platform cat tree" },
-  { src: "https://placehold.co/600x400/1c1917/c9a45e?text=Gallery+4", alt: "Wood grain detail" },
-  { src: "https://placehold.co/600x400/1c1917/c9a45e?text=Gallery+5", alt: "Cat perch platform" },
-  { src: "https://placehold.co/600x400/1c1917/c9a45e?text=Gallery+6", alt: "Finished cat tree installation" },
+  { src: "/images/tree-7-level-blue-kitten.png", alt: "Blue carpeted cat tree with kitten" },
+  { src: "/images/tree-beige-sisal.png", alt: "Beige carpeted cat tree with sisal wrap" },
+  { src: "/images/tree-blue-grey.png", alt: "Blue-grey carpeted natural wood cat tree" },
+  { src: "/images/tree-terracotta.png", alt: "Terracotta carpeted cat tree in a pet store" },
+  { src: "/images/tree-outdoor.png", alt: "Natural wood cat tree outdoors" },
+  { src: "/images/tree-natural-wood.png", alt: "Natural wood multi-level cat tree" },
 ];
 
 // ── Shop Thumbnails ───────────────────────────
 export const SHOP_IMAGES = [
-  { src: "https://placehold.co/800x900/1c1917/c9a45e?text=Main+View", alt: "Natural wood cat tree main view" },
-  { src: "https://placehold.co/800x900/1c1917/c9a45e?text=Side+View", alt: "Side view" },
-  { src: "https://placehold.co/800x900/1c1917/c9a45e?text=Detail", alt: "Branch detail" },
-  { src: "https://placehold.co/800x900/1c1917/c9a45e?text=Platform", alt: "Platform close-up" },
-  { src: "https://placehold.co/800x900/1c1917/c9a45e?text=Sisal", alt: "Sisal wrapping" },
-  { src: "https://placehold.co/800x900/1c1917/c9a45e?text=Full+Tree", alt: "Full tree assembled" },
-  { src: "https://placehold.co/800x900/1c1917/c9a45e?text=Carpet", alt: "Carpet color detail" },
+  { src: "/images/tree-7-level-green.png", alt: "Seven-level green carpeted cat tree" },
+  { src: "/images/tree-7-level-blue-kitten.png", alt: "Seven-level blue carpeted cat tree" },
+  { src: "/images/tree-6-level-beige.png", alt: "Six-level beige carpeted cat tree" },
+  { src: "/images/tree-red-orange.png", alt: "Tall red carpeted cat tree" },
+  { src: "/images/tree-beige-sisal.png", alt: "Beige cat tree with sisal scratching wrap" },
+  { src: "/images/tree-truck-cat.png", alt: "Cat perched on a tall natural wood tree" },
+  { src: "/images/cats-store-display.png", alt: "LazyCat trees on display in store" },
 ];
 
 // ── Commission Themes ─────────────────────────

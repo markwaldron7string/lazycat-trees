@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { COMMISSION_THEMES } from "@/lib/products";
+import { COMMISSION_HERO, COMMISSION_INSPIRATION } from "@/lib/media";
 import { EyebrowLabel } from "@/components/GoldLine";
 import ContactForm from "@/components/ContactForm";
 
@@ -12,22 +14,32 @@ export const metadata: Metadata = {
 export default function CommissionPage() {
   return (
     <div className="min-h-screen bg-background pt-28 pb-24">
+      {/* Hero banner */}
+      <div className="relative h-64 lg:h-80 mb-16 overflow-hidden">
+        <Image
+          src={COMMISSION_HERO.src}
+          alt={COMMISSION_HERO.alt}
+          fill
+          className="object-cover object-center"
+          priority
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-linear-to-t from-background via-background/50 to-background/20" />
+        <div className="absolute bottom-8 left-0 right-0 mx-auto max-w-7xl px-6 lg:px-10">
+          <EyebrowLabel>Custom Commission</EyebrowLabel>
+          <h1 className="mt-4 font-playfair text-4xl font-bold text-cream lg:text-5xl">
+            Your Vision, <span className="italic text-gold">Handcrafted</span>
+          </h1>
+        </div>
+      </div>
+
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
 
-        {/* Header */}
-        <div className="max-w-2xl mb-16">
-          <EyebrowLabel>Custom Commission</EyebrowLabel>
-          <h1 className="mt-5 font-playfair text-5xl font-bold leading-tight text-cream lg:text-6xl">
-            Your Vision,<br />
-            <span className="italic text-gold">Handcrafted</span>
-          </h1>
-          <p className="mt-6 font-cormorant text-xl leading-relaxed text-stone-400 max-w-xl">
-            Every LazyCat tree is already one of a kind — but a custom
-            commission takes it further. Tell us your theme, your mood, your
-            inspiration. We'll bring it to life in natural wood, sisal, and
-            carefully chosen carpet.
-          </p>
-        </div>
+        <p className="font-cormorant text-xl leading-relaxed text-stone-400 max-w-2xl mb-16 -mt-4">
+          Every LazyCat tree is already one of a kind — but a custom commission takes it
+          further. Tell us your theme, your mood, your inspiration. We&apos;ll bring it to
+          life in natural wood, sisal, and carefully chosen carpet.
+        </p>
 
         {/* Theme examples */}
         <div className="mb-16">
@@ -98,7 +110,22 @@ export default function CommissionPage() {
             <ContactForm type="commission" commission />
           </div>
 
-          <div className="hidden lg:flex flex-col justify-start pt-16">
+          <div className="hidden lg:flex flex-col gap-5 pt-16">
+            <p className="eyebrow">Recent Inspiration</p>
+            {COMMISSION_INSPIRATION.map((img) => (
+              <div
+                key={img.src}
+                className="relative aspect-4/3 overflow-hidden border border-stone-800 img-zoom"
+              >
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  className="object-cover"
+                  sizes="400px"
+                />
+              </div>
+            ))}
             <div className="bg-stone-900 border border-stone-800 p-8">
               <p className="eyebrow mb-4">What We Need to Know</p>
               <ul className="space-y-4">

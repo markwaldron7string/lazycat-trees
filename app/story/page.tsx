@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { EyebrowLabel } from "@/components/GoldLine";
 import { PLATFORM_SPECS, WOOD_TYPES } from "@/lib/products";
+import { STORY_IMAGES } from "@/lib/media";
 
 export const metadata: Metadata = {
   title: "Our Story — From Animal Shelter to Artisan Workshop",
@@ -16,13 +17,12 @@ export default function StoryPage() {
       {/* Hero image banner */}
       <div className="relative h-72 lg:h-96 mb-20 overflow-hidden">
         <Image
-          src="https://placehold.co/1920x600/0c0a08/1c1917?text=."
-          alt="LazyCat Trees workshop — natural wood and sisal"
+          src={STORY_IMAGES.hero.src}
+          alt={STORY_IMAGES.hero.alt}
           fill
-          className="object-cover"
+          className="object-cover object-center"
           priority
           sizes="100vw"
-          unoptimized
         />
         <div className="absolute inset-0 bg-linear-to-b from-background/30 via-background/20 to-background" />
         <div className="absolute inset-0 flex items-center justify-center">
@@ -45,17 +45,16 @@ export default function StoryPage() {
             {/* Portrait photo */}
             <div className="relative aspect-square w-full mb-6 overflow-hidden">
               <Image
-                src="https://placehold.co/560x560/1c1917/c9a45e?text=LazyCat+Trees"
-                alt="LazyCat Trees founder"
+                src={STORY_IMAGES.sidebar.src}
+                alt={STORY_IMAGES.sidebar.alt}
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 280px"
-                unoptimized
               />
             </div>
 
             {/* At a Glance card */}
-            <div className="bg-stone-900 border border-stone-800 p-6">
+            <div className="bg-stone-900 max-[1024px]:hidden border border-stone-800 p-6">
               <p className="eyebrow mb-5">At a Glance</p>
               <dl className="space-y-4">
                 {[
@@ -183,20 +182,14 @@ export default function StoryPage() {
 
             {/* Photo grid */}
             <div className="mb-16 grid grid-cols-2 gap-4">
-              {[
-                { src: "https://placehold.co/600x500/1c1917/c9a45e?text=Story+Photo+1", alt: "Wood curing process" },
-                { src: "https://placehold.co/600x500/0c0a08/c9a45e?text=Story+Photo+2", alt: "Hand-sanding grain" },
-                { src: "https://placehold.co/600x500/0c0a08/c9a45e?text=Story+Photo+3", alt: "Platform assembly" },
-                { src: "https://placehold.co/600x500/1c1917/c9a45e?text=Story+Photo+4", alt: "Finished cat tree" },
-              ].map((img, i) => (
-                <div key={i} className="relative aspect-6/5 overflow-hidden img-zoom">
+              {STORY_IMAGES.grid.map((img) => (
+                <div key={img.src} className="relative aspect-6/5 overflow-hidden img-zoom">
                   <Image
                     src={img.src}
                     alt={img.alt}
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 50vw, 33vw"
-                    unoptimized
                   />
                 </div>
               ))}

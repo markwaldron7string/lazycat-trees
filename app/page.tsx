@@ -2,15 +2,20 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  STATS,
   MARQUEE_ITEMS,
-  FEATURED_PRODUCTS,
+  FEATURED_ITEMS,
   CRAFT_FEATURES,
   HOW_IT_WORKS_STEPS,
-  GALLERY_IMAGES,
   COMMISSION_THEMES,
+  formatCurrency,
 } from "@/lib/products";
+import {
+  CRAFT_COLLAGE_IMAGES,
+  GALLERY_STRIP_IMAGES,
+} from "@/lib/media";
 import { EyebrowLabel } from "@/components/GoldLine";
+import HeroSection from "@/components/HeroSection";
+import LifestyleStrip from "@/components/LifestyleStrip";
 
 export const metadata: Metadata = {
   title: "LazyCat Trees — Handcrafted Natural Wood Cat Trees",
@@ -18,11 +23,31 @@ export const metadata: Metadata = {
     "Where nature becomes art. Luxury handcrafted cat trees made from sustainably sourced natural wood in Cheyenne, Wyoming. Custom-built to order.",
 };
 
+// Photo strip images — 12 images rendered twice for a seamless infinite loop
+const PHOTO_STRIP = [
+  { src: "/images/product-classic.png",     alt: "Classic natural wood cat tree" },
+  { src: "/images/product-grand.png",       alt: "Grand multi-level cat tree" },
+  { src: "/images/product-pinnacle.png",    alt: "Pinnacle eight-level cat tree" },
+  { src: "/images/hero-slide-1.png",        alt: "LazyCat Trees at red barn market" },
+  { src: "/images/hero-slide-2.png",        alt: "Blue cat tree outside garage" },
+  { src: "/images/hero-slide-3.png",        alt: "Pink cat tree outside garage" },
+  { src: "/images/hero-slide-4.png",        alt: "Full market tent display" },
+  { src: "/images/tree-4-level-store.png",  alt: "Black & white kitty" },
+  { src: "/images/cat-orange-lounge.png",   alt: "4 level pink" },
+  { src: "/images/cat-orange-store.png",    alt: "peeking/biting yarn" },
+  { src: "/images/cats-store-display.png",  alt: "Orange and oreo" },
+  { src: "/images/detail-carpet.png",       alt: "peeking and swatting" },
+];
+
 // Badge color mapping
 const BADGE_STYLES: Record<string, string> = {
-  Popular:    "bg-stone-800 text-cream",
-  Bestseller: "bg-gold text-stone-950",
-  Signature:  "bg-stone-900 border border-gold text-gold",
+  // Legacy product badges
+  Popular:        "bg-stone-800 text-cream",
+  Bestseller:     "bg-gold text-stone-950",
+  // Featured Items badges
+  "Entry Level":  "bg-stone-800 text-cream",
+  "Most Popular": "bg-gold text-stone-950",
+  Signature:      "bg-stone-900 border border-gold text-gold",
 };
 
 export default function HomePage() {
@@ -31,82 +56,27 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           HERO
       ═══════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="https://placehold.co/1920x1080/0c0a08/1c1917?text=."
-            alt="LazyCat Trees — natural wood cat tree"
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-            unoptimized
-          />
-          {/* Readability gradient — left-side bias */}
-          <div className="absolute inset-0 bg-linear-to-r from-background via-background/80 to-transparent" />
-          <div className="absolute inset-0 bg-linear-to-t from-background/60 via-transparent to-transparent" />
-        </div>
+      <HeroSection />
 
-        {/* Hero content */}
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-32 lg:px-10">
-          <div className="max-w-xl">
-            {/* Eyebrow */}
-            <div className="flex items-center gap-3 mb-6">
-              <span className="gold-rule" aria-hidden="true" />
-              <span className="eyebrow">Cheyenne, Wyoming</span>
+      {/* ═══════════════════════════════════════════
+          PHOTO STRIP  (hero → marquee transition)
+      ═══════════════════════════════════════════ */}
+      {/*
+        12 images rendered twice → width: max-content.
+        translateX(-50%) moves exactly one full copy; snaps back seamlessly.
+      */}
+      <div className="overflow-hidden bg-stone-950 py-2" aria-hidden="true">
+        <div
+          className="flex gap-2"
+          style={{ animation: "photo-strip 45s linear infinite", width: "max-content" }}
+        >
+          {[...PHOTO_STRIP, ...PHOTO_STRIP].map((img, i) => (
+            <div key={i} className="shrink-0 w-40 h-24 overflow-hidden">
+              <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
             </div>
-
-            {/* H1 */}
-            <h1 className="font-playfair text-5xl font-bold leading-none tracking-tight text-cream sm:text-6xl lg:text-7xl">
-              Where Nature
-              <br />
-              <span className="italic text-gold">Becomes Art</span>
-            </h1>
-
-            {/* Subtext */}
-            <p className="mt-6 font-cormorant text-xl leading-relaxed text-stone-300 max-w-md">
-              Handcrafted natural wood cat trees — sustainably sourced, made to
-              order, and one-of-a-kind. Built in Wyoming for cats who deserve
-              nothing less.
-            </p>
-
-            {/* CTAs */}
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <Link
-                href="/shop"
-                className="inline-flex items-center font-jost rounded-2xl text-sm font-semibold tracking-widest uppercase px-7 py-4 bg-gold text-stone-950 hover:bg-gold-light transition-colors"
-              >
-                Build Your Tree
-              </Link>
-              <Link
-                href="/story"
-                className="inline-flex items-center font-jost rounded-2xl text-sm font-semibold tracking-widest uppercase px-7 py-4 border border-stone-700 text-cream hover:border-stone-500 transition-colors"
-              >
-                Our Story
-              </Link>
-            </div>
-
-            {/* Stats */}
-            <div className="mt-14 grid grid-cols-2 gap-x-8 gap-y-5 border-t border-stone-800 pt-8 sm:grid-cols-4">
-              {STATS.map(({ value, label }) => (
-                <div key={label}>
-                  <p className="font-playfair text-2xl font-bold text-gold">{value}</p>
-                  <p className="mt-0.5 font-jost text-xs text-stone-500 tracking-widest uppercase">
-                    {label}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-60">
-          <span className="font-jost text-xs tracking-widest uppercase text-stone-500">Scroll</span>
-          <div className="w-px h-10 bg-linear-to-b from-stone-500 to-transparent" />
-        </div>
-      </section>
+      </div>
 
       {/* ═══════════════════════════════════════════
           GOLD MARQUEE BAR
@@ -134,58 +104,56 @@ export default function HomePage() {
       <section className="py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="text-center mb-16">
-            <EyebrowLabel>Featured Collection</EyebrowLabel>
+            <EyebrowLabel>Shop by Style</EyebrowLabel>
             <h2 className="mt-5 font-playfair text-4xl font-bold text-cream lg:text-5xl">
-              Crafted for the <span className="italic text-gold">Discerning Cat</span>
+              Find Your{" "}
+              <span className="italic text-gold">Perfect Match</span>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {FEATURED_PRODUCTS.map((product) => (
+            {FEATURED_ITEMS.map((item) => (
               <div
-                key={product.id}
+                key={item.slug}
                 className="group flex flex-col bg-stone-900 border border-stone-800 card-hover"
               >
                 {/* Image */}
-                <div className="relative aspect-3/4 overflow-hidden img-zoom">
-                  <Image
-                    src={product.imageSrc}
-                    alt={product.imageAlt}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    unoptimized
+                <div className="relative h-80 overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   />
                   {/* Badge */}
                   <span
                     className={`absolute top-4 left-4 font-jost text-xs font-semibold tracking-widest uppercase px-3 py-1 ${
-                      BADGE_STYLES[product.badge]
+                      BADGE_STYLES[item.badge] ?? "bg-stone-800 text-cream"
                     }`}
                   >
-                    {product.badge}
+                    {item.badge}
                   </span>
                 </div>
 
                 {/* Content */}
                 <div className="flex flex-col flex-1 p-6">
                   <p className="font-jost text-xs text-stone-500 tracking-widest uppercase mb-1">
-                    {product.platforms} platforms
+                    {item.platformRange}
                   </p>
                   <h3 className="font-playfair text-2xl font-semibold text-cream mb-3">
-                    {product.name}
+                    {item.name}
                   </h3>
                   <p className="font-cormorant text-base leading-relaxed text-stone-400 flex-1 mb-6">
-                    {product.description}
+                    {item.description}
                   </p>
                   <div className="flex items-center justify-between">
                     <span className="font-playfair text-xl font-bold text-gold">
-                      ${(product.platforms * 1000).toLocaleString()}
+                      From {formatCurrency(item.fromPrice)}
                     </span>
                     <Link
                       href="/shop"
                       className="font-jost text-xs font-semibold tracking-widest uppercase text-gold hover:text-gold-light transition-colors"
                     >
-                      Configure →
+                      Build This Tree →
                     </Link>
                   </div>
                 </div>
@@ -206,22 +174,20 @@ export default function HomePage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="relative aspect-4/5 col-span-1">
                   <Image
-                    src="https://placehold.co/600x750/1c1917/c9a45e?text=Craft+1"
-                    alt="Artisan crafting natural wood cat tree"
+                    src={CRAFT_COLLAGE_IMAGES[0].src}
+                    alt={CRAFT_COLLAGE_IMAGES[0].alt}
                     fill
                     className="object-cover"
                     sizes="300px"
-                    unoptimized
                   />
                 </div>
                 <div className="relative aspect-4/5 col-span-1 mt-10">
                   <Image
-                    src="https://placehold.co/600x750/0c0a08/c9a45e?text=Craft+2"
-                    alt="Wood grain and sisal detail"
+                    src={CRAFT_COLLAGE_IMAGES[1].src}
+                    alt={CRAFT_COLLAGE_IMAGES[1].alt}
                     fill
                     className="object-cover"
                     sizes="300px"
-                    unoptimized
                   />
                 </div>
               </div>
@@ -271,6 +237,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <LifestyleStrip />
 
       {/* ═══════════════════════════════════════════
           HOW IT WORKS
@@ -322,15 +290,14 @@ export default function HomePage() {
       ═══════════════════════════════════════════ */}
       <section className="bg-stone-950">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
-          {GALLERY_IMAGES.map((img, i) => (
-            <div key={i} className="relative aspect-square img-zoom">
+          {GALLERY_STRIP_IMAGES.map((img) => (
+            <div key={img.src} className="relative aspect-square img-zoom">
               <Image
                 src={img.src}
                 alt={img.alt}
                 fill
                 className="object-cover"
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
-                unoptimized
               />
             </div>
           ))}

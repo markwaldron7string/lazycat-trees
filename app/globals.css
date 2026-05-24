@@ -40,6 +40,66 @@ body {
   animation: marquee 28s linear infinite;
 }
 
+/* Hero floating photo collage */
+@keyframes hero-float {
+  0%, 100% { transform: translateY(0) rotate(var(--hero-rotate, 0deg)); }
+  50% { transform: translateY(-14px) rotate(var(--hero-rotate, 0deg)); }
+}
+.hero-float-card {
+  animation: hero-float 7s ease-in-out infinite;
+}
+.hero-float-0 { --hero-rotate: -2deg; animation-delay: 0s; }
+.hero-float-1 { --hero-rotate: 1.5deg; animation-delay: 1.2s; }
+.hero-float-2 { --hero-rotate: -1deg; animation-delay: 2.4s; }
+.hero-float-3 { --hero-rotate: 2deg; animation-delay: 0.6s; }
+
+/* Scroll-reveal (CSS-only on load) */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.reveal-up {
+  animation: reveal-up 0.9s ease forwards;
+}
+.reveal-delay-0 { animation-delay: 0.1s; opacity: 0; }
+.reveal-delay-1 { animation-delay: 0.25s; opacity: 0; }
+.reveal-delay-2 { animation-delay: 0.4s; opacity: 0; }
+
+/* Ken Burns on hero background (legacy single-image) */
+@keyframes ken-burns {
+  0% { transform: scale(1.05); }
+  100% { transform: scale(1.12); }
+}
+.animate-ken-burns {
+  animation: ken-burns 22s ease-in-out infinite alternate;
+}
+
+/* Hero slideshow: Ken Burns zoom on the active slide */
+@keyframes kenburns {
+  from { transform: scale(1.0); }
+  to   { transform: scale(1.12); }
+}
+.kenburns-active {
+  animation: kenburns 5500ms ease-in-out forwards;
+}
+
+/* Photo strip carousel */
+@keyframes photo-strip {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.photo-strip-track {
+  animation: photo-strip 40s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
 /* Card hover */
 .card-hover {
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;

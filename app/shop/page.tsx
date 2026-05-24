@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CatTree3DConfigurator from "@/components/CatTree3DConfigurator";
+import ShopGallery from "@/components/ShopGallery";
 
 export const metadata: Metadata = {
   title: "Shop — Configure Your Natural Wood Cat Tree",
@@ -14,9 +15,12 @@ export default function ShopPage() {
         {/* Page header */}
         <div className="mb-12 border-b border-stone-800 pb-8">
           <p className="eyebrow mb-3">Configure &amp; Order</p>
+          <p className="font-cormorant text-lg text-stone-400 max-w-2xl">
+            Design your tree in the live 3D preview, then order securely through Stripe.
+          </p>
         </div>
 
-        {/* 3D configurator — client component */}
+        <ShopGallery />
         <CatTree3DConfigurator />
       </div>
     </div>
