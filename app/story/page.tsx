@@ -20,7 +20,7 @@ export default function StoryPage() {
           src={STORY_IMAGES.hero.src}
           alt={STORY_IMAGES.hero.alt}
           fill
-          className="object-cover object-center"
+          className="object-cover object-[center_40%]"
           priority
           sizes="100vw"
         />
