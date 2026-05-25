@@ -87,7 +87,7 @@ export default function CommissionPage() {
               "Your tree is handcrafted over approximately 30 days, then inspected and shipped with care.",
             ].map((step, i) => (
               <li key={i} className="flex gap-4">
-                <span className="font-playfair text-lg font-bold text-gold flex-shrink-0">
+                <span className="font-playfair text-lg font-bold text-gold shrink-0">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <p className="font-cormorant text-base leading-relaxed text-stone-400">{step}</p>
@@ -126,7 +126,7 @@ export default function CommissionPage() {
                 />
               </div>
             ))}
-            <div className="bg-stone-900 border border-stone-800 p-8">
+            <div className="bg-navy border border-stone-800 p-8">
               <p className="eyebrow mb-4">What We Need to Know</p>
               <ul className="space-y-4">
                 {[
@@ -138,7 +138,7 @@ export default function CommissionPage() {
                 ].map(({ q, a }) => (
                   <li key={q} className="border-b border-stone-800 pb-4 last:border-0 last:pb-0">
                     <p className="font-jost text-xs font-semibold text-cream tracking-widest uppercase mb-1">{q}</p>
-                    <p className="font-cormorant text-sm text-stone-500 leading-relaxed">{a}</p>
+                    <p className="font-cormorant text-sm text-stone-400 leading-relaxed">{a}</p>
                   </li>
                 ))}
               </ul>

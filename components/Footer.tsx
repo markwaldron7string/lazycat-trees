@@ -38,12 +38,18 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-stone-800 bg-stone-950">
+    <footer
+      className="border-t border-[#1e2e50]"
+      style={{ backgroundColor: 'var(--patriot-navy-2)' }}
+    >
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
           {/* Brand blurb */}
           <div className="md:col-span-1">
-            <Link href="/" className="font-playfair text-xl font-bold text-cream hover:text-gold transition-colors">
+            <Link
+              href="/"
+              className="font-playfair text-xl font-bold text-cream hover:text-[#d42b40] transition-colors"
+            >
               LazyCat Trees
             </Link>
             <p className="mt-4 font-cormorant text-base leading-relaxed text-stone-400">
@@ -58,7 +64,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LazyCat Trees on Facebook"
-                className="flex items-center justify-center w-9 h-9 border border-stone-700 text-stone-400 hover:border-gold hover:text-gold transition-colors"
+                className="flex items-center justify-center w-9 h-9 border border-[#1e2e50] text-stone-400 hover:border-[#b22234] hover:text-[#b22234] transition-colors"
               >
                 <FacebookIcon />
               </a>
@@ -67,7 +73,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LazyCat Trees on Etsy"
-                className="flex items-center justify-center w-9 h-9 border border-stone-700 text-stone-400 hover:border-gold hover:text-gold transition-colors"
+                className="flex items-center justify-center w-9 h-9 border border-[#1e2e50] text-stone-400 hover:border-[#b22234] hover:text-[#b22234] transition-colors"
               >
                 <EtsyIcon />
               </a>
@@ -76,7 +82,7 @@ export default function Footer() {
 
           {/* Shop links */}
           <div>
-            <h3 className="eyebrow text-gold mb-5">Shop</h3>
+            <h3 className="eyebrow mb-5" style={{ color: '#b22234' }}>Shop</h3>
             <ul className="space-y-3">
               {SHOP_LINKS.map(({ href, label }) => (
                 <li key={href}>
@@ -93,7 +99,7 @@ export default function Footer() {
 
           {/* Company links */}
           <div>
-            <h3 className="eyebrow text-gold mb-5">Company</h3>
+            <h3 className="eyebrow mb-5" style={{ color: '#b22234' }}>Company</h3>
             <ul className="space-y-3">
               {COMPANY_LINKS.map(({ href, label }) => (
                 <li key={href}>
@@ -110,7 +116,7 @@ export default function Footer() {
 
           {/* Connect links */}
           <div>
-            <h3 className="eyebrow text-gold mb-5">Connect</h3>
+            <h3 className="eyebrow mb-5" style={{ color: '#b22234' }}>Connect</h3>
             <ul className="space-y-3">
               {CONNECT_LINKS.map(({ href, label, external }) => (
                 <li key={href}>
@@ -137,11 +143,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-14 flex flex-col items-center gap-4 border-t border-stone-800 pt-8 md:flex-row md:justify-between">
-          <p className="font-jost text-xs text-stone-600 tracking-widest uppercase">
-            © {year} LazyCat Trees, LLC · Cheyenne, Wyoming
+        <div className="mt-14 flex flex-col items-center gap-4 border-t border-[#1e2e50] pt-8 md:flex-row md:justify-between">
+          <p className="font-jost text-xs text-stone-500 tracking-widest uppercase">
+            © {year} ★ LazyCat Trees, LLC — Proudly American Made 🇺🇸
           </p>
-          <p className="font-jost text-xs text-stone-600 tracking-widest uppercase">
+          <p className="font-jost text-xs text-stone-500 tracking-widest uppercase">
             All trees made to order · No returns or exchanges
           </p>
         </div>

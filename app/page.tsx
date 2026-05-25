@@ -43,11 +43,11 @@ const PHOTO_STRIP = [
 const BADGE_STYLES: Record<string, string> = {
   // Legacy product badges
   Popular:        "bg-stone-800 text-cream",
-  Bestseller:     "bg-gold text-stone-950",
+  Bestseller:     "bg-[#b22234] text-white",
   // Featured Items badges
   "Entry Level":  "bg-stone-800 text-cream",
-  "Most Popular": "bg-gold text-stone-950",
-  Signature:      "bg-stone-900 border border-gold text-gold",
+  "Most Popular": "bg-[#b22234] text-white",
+  Signature:      "bg-[#0f1f3d] border border-[#b22234] text-[#b22234]",
 };
 
 export default function HomePage() {
@@ -61,11 +61,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           PHOTO STRIP  (hero → marquee transition)
       ═══════════════════════════════════════════ */}
-      {/*
-        12 images rendered twice → width: max-content.
-        translateX(-50%) moves exactly one full copy; snaps back seamlessly.
-      */}
-      <div className="overflow-hidden bg-stone-950 py-2" aria-hidden="true">
+      <div className="overflow-hidden bg-[#0a1628] py-2" aria-hidden="true">
         <div
           className="flex gap-2"
           style={{ animation: "photo-strip 45s linear infinite", width: "max-content" }}
@@ -79,9 +75,9 @@ export default function HomePage() {
       </div>
 
       {/* ═══════════════════════════════════════════
-          GOLD MARQUEE BAR
+          PATRIOT MARQUEE BAR
       ═══════════════════════════════════════════ */}
-      <div className="border-y border-gold/30 bg-stone-950 py-4 overflow-hidden">
+      <div className="border-y border-[#b22234]/40 py-4 overflow-hidden" style={{ backgroundColor: '#b22234' }}>
         <div
           className="flex gap-0 animate-marquee whitespace-nowrap"
           aria-hidden="true"
@@ -89,8 +85,8 @@ export default function HomePage() {
           {/* Duplicate for seamless loop */}
           {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
             <span key={i} className="inline-flex items-center gap-6 px-6">
-              <span className="text-gold" aria-hidden="true">✦</span>
-              <span className="font-jost text-xs tracking-widest uppercase text-stone-400">
+              <span className="text-white/80" aria-hidden="true">★</span>
+              <span className="font-jost text-xs tracking-widest uppercase text-white font-semibold">
                 {item}
               </span>
             </span>
@@ -101,13 +97,13 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           FEATURED COLLECTION
       ═══════════════════════════════════════════ */}
-      <section className="py-24 lg:py-32">
+      <section className="py-24 lg:py-32 bg-[#0a1628]">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="text-center mb-16">
             <EyebrowLabel>Shop by Style</EyebrowLabel>
             <h2 className="mt-5 font-playfair text-4xl font-bold text-cream lg:text-5xl">
               Find Your{" "}
-              <span className="italic text-gold">Perfect Match</span>
+              <span className="italic text-[#b22234]">Perfect Match</span>
             </h2>
           </div>
 
@@ -115,7 +111,7 @@ export default function HomePage() {
             {FEATURED_ITEMS.map((item) => (
               <div
                 key={item.slug}
-                className="group flex flex-col bg-stone-900 border border-stone-800 card-hover"
+                className="group flex flex-col product-card card-hover"
               >
                 {/* Image */}
                 <div className="relative h-80 overflow-hidden">
@@ -146,12 +142,12 @@ export default function HomePage() {
                     {item.description}
                   </p>
                   <div className="flex items-center justify-between">
-                    <span className="font-playfair text-xl font-bold text-gold">
+                    <span className="font-playfair text-xl font-bold text-[#b22234]">
                       From {formatCurrency(item.fromPrice)}
                     </span>
                     <Link
                       href="/shop"
-                      className="font-jost text-xs font-semibold tracking-widest uppercase text-gold hover:text-gold-light transition-colors"
+                      className="font-jost text-xs font-semibold tracking-widest uppercase text-[#b22234] hover:text-[#d42b40] transition-colors"
                     >
                       Build This Tree →
                     </Link>
@@ -166,7 +162,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           THE CRAFT (2-column)
       ═══════════════════════════════════════════ */}
-      <section className="py-24 lg:py-32 bg-stone-950">
+      <section className="py-24 lg:py-32 bg-[#0f1f3d]">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20 items-center">
             {/* Left: image collage */}
@@ -191,8 +187,8 @@ export default function HomePage() {
                   />
                 </div>
               </div>
-              {/* Gold badge overlay */}
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-gold text-stone-950 px-6 py-4 text-center min-w-35">
+              {/* Red badge overlay */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-[#b22234] text-white px-6 py-4 text-center min-w-35">
                 <p className="font-playfair text-3xl font-bold">10+</p>
                 <p className="font-jost text-xs tracking-widest uppercase">Years of Craft</p>
               </div>
@@ -203,7 +199,7 @@ export default function HomePage() {
               <EyebrowLabel>The Craft</EyebrowLabel>
               <h2 className="mt-5 font-playfair text-4xl font-bold text-cream leading-tight lg:text-5xl">
                 Every Branch<br />
-                <span className="italic text-gold">Hand Selected</span>
+                <span className="italic text-[#b22234]">Hand Selected</span>
               </h2>
               <p className="mt-6 font-cormorant text-lg leading-relaxed text-stone-400">
                 Each LazyCat tree begins with a walk in the forest. We source
@@ -216,7 +212,7 @@ export default function HomePage() {
               <div className="mt-10 grid grid-cols-2 gap-6">
                 {CRAFT_FEATURES.map((feature) => (
                   <div key={feature.title} className="flex flex-col gap-2">
-                    <div className="w-8 h-px bg-gold" />
+                    <div className="w-8 h-px bg-[#b22234]" />
                     <h4 className="font-jost text-sm font-semibold text-cream tracking-wide">
                       {feature.title}
                     </h4>
@@ -229,7 +225,7 @@ export default function HomePage() {
 
               <Link
                 href="/story"
-                className="mt-10 inline-flex items-center font-jost text-xs font-semibold tracking-widest uppercase text-gold border-b border-gold/40 pb-0.5 hover:border-gold transition-colors"
+                className="mt-10 inline-flex items-center font-jost text-xs font-semibold tracking-widest uppercase text-[#b22234] border-b border-[#b22234]/40 pb-0.5 hover:border-[#b22234] transition-colors"
               >
                 Read Our Full Story →
               </Link>
@@ -243,12 +239,12 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           HOW IT WORKS
       ═══════════════════════════════════════════ */}
-      <section className="py-24 lg:py-32">
+      <section className="py-24 lg:py-32 bg-[#0a1628]">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="text-center mb-16">
             <EyebrowLabel>Process</EyebrowLabel>
             <h2 className="mt-5 font-playfair text-4xl font-bold text-cream lg:text-5xl">
-              How It <span className="italic text-gold">Works</span>
+              How It <span className="italic text-[#b22234]">Works</span>
             </h2>
           </div>
 
@@ -258,14 +254,14 @@ export default function HomePage() {
                 {/* Connector line (not last) */}
                 {i < HOW_IT_WORKS_STEPS.length - 1 && (
                   <div
-                    className="hidden lg:block absolute top-5 left-full w-full h-px bg-stone-800 z-0"
+                    className="hidden lg:block absolute top-5 left-full w-full h-px bg-[#1e2e50] z-0"
                     aria-hidden="true"
                   />
                 )}
-                <span className="relative z-10 font-playfair text-5xl font-bold text-stone-800 leading-none">
+                <span className="relative z-10 font-playfair text-5xl font-bold text-[#1e2e50] leading-none">
                   {step.number}
                 </span>
-                <div className="w-8 h-px bg-gold" />
+                <div className="w-8 h-px bg-[#b22234]" />
                 <h3 className="font-playfair text-xl font-semibold text-cream">{step.title}</h3>
                 <p className="font-cormorant text-base leading-relaxed text-stone-400">
                   {step.description}
@@ -275,11 +271,8 @@ export default function HomePage() {
           </div>
 
           <div className="mt-14 text-center">
-            <Link
-              href="/shop"
-              className="inline-flex items-center font-jost text-sm rounded-2xl font-semibold tracking-widest uppercase px-8 py-4 bg-gold text-stone-950 hover:bg-gold-light transition-colors"
-            >
-              Start Configuring →
+            <Link href="/shop" className="btn-primary">
+              Start Configuring
             </Link>
           </div>
         </div>
@@ -288,7 +281,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           GALLERY STRIP
       ═══════════════════════════════════════════ */}
-      <section className="bg-stone-950">
+      <section className="bg-[#0f1f3d]">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
           {GALLERY_STRIP_IMAGES.map((img) => (
             <div key={img.src} className="relative aspect-square img-zoom">
@@ -307,13 +300,13 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════
           COMMISSION CTA BANNER
       ═══════════════════════════════════════════ */}
-      <section className="py-24 lg:py-32 bg-background border-t border-stone-800">
+      <section className="py-24 lg:py-32 bg-[#0a1628] border-t border-[#1e2e50] star-bg">
         <div className="mx-auto max-w-3xl px-6 text-center lg:px-10">
           <EyebrowLabel>Custom Commission</EyebrowLabel>
           <h2 className="mt-6 font-playfair text-4xl font-bold text-cream leading-tight lg:text-5xl">
             Commission Your
             <br />
-            <span className="italic text-gold">Dream Tree</span>
+            <span className="italic text-[#b22234]">Dream Tree</span>
           </h2>
           <p className="mt-6 font-cormorant text-xl leading-relaxed text-stone-400 max-w-xl mx-auto">
             We've built mushroom-inspired masterpieces and Egyptian hieroglyph
@@ -326,28 +319,22 @@ export default function HomePage() {
             {COMMISSION_THEMES.map((theme) => (
               <span
                 key={theme.name}
-                className="inline-flex items-center gap-2 border border-stone-700 px-4 py-2 font-cormorant text-sm text-stone-400"
+                className="inline-flex items-center gap-2 border border-[#1e2e50] px-4 py-2 font-cormorant text-sm text-stone-400"
               >
                 <span>{theme.emoji}</span>
                 {theme.name}
                 {theme.built && (
-                  <span className="font-jost text-xs text-gold">✓ Built</span>
+                  <span className="font-jost text-xs text-[#b22234]">✓ Built</span>
                 )}
               </span>
             ))}
           </div>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/commission"
-              className="inline-flex items-center rounded-2xl font-jost text-sm font-semibold tracking-widest uppercase px-8 py-4 bg-gold text-stone-950 hover:bg-gold-light transition-colors"
-            >
+            <Link href="/commission" className="btn-primary">
               Start Your Commission
             </Link>
-            <Link
-              href="/contact"
-              className="inline-flex items-center rounded-2xl font-jost text-sm font-semibold tracking-widest uppercase px-8 py-4 border border-stone-700 text-cream hover:border-stone-500 transition-colors"
-            >
+            <Link href="/contact" className="btn-ghost">
               Ask a Question
             </Link>
           </div>

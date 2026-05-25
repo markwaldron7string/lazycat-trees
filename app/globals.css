@@ -1,22 +1,47 @@
 @import "tailwindcss";
 
-@theme {
-  /* Brand Colors */
-  --color-gold: #c9a45e;
+:root {
+  /* Brand Colors (legacy gold kept for accents) */
+  --color-gold:       #c9a45e;
   --color-gold-light: #dfc08a;
-  --color-gold-dark: #a8843e;
-  --color-cream: #f0e8d8;
-  --color-background: #0c0a08;
+  --color-gold-dark:  #a8843e;
+  --color-cream:      #f0e8d8;
+
+  /* Patriot Color System */
+  --color-navy:              #0a1628;
+  --color-navy-2:            #0f1f3d;
+  --color-navy-card:         #111d36;
+  --color-patriot-red:       #b22234;
+  --color-patriot-red-light: #d42b40;
+  --color-patriot-white:     #f0ece4;
+  --color-patriot-white-dim: #9ca8b8;
+  --color-patriot-border:    #1e2e50;
+  --color-patriot-border-2:  #2a3f6e;
+
+  /* Semantic alias used by bg-background */
+  --color-background: #0a1628;
 
   /* Brand Fonts (mapped from next/font CSS variables) */
-  --font-playfair: var(--playfair-font);
+  --font-playfair:  var(--playfair-font);
   --font-cormorant: var(--cormorant-font);
-  --font-jost: var(--jost-font);
+  --font-jost:      var(--jost-font);
 }
 
+/* ── CSS Custom Properties ────────────────── */
 :root {
-  --background: #0c0a08;
-  --foreground: #f0e8d8;
+  --patriot-navy:      #0a1628;
+  --patriot-navy-2:    #0f1f3d;
+  --patriot-navy-card: #111d36;
+  --patriot-red:       #b22234;
+  --patriot-red-light: #d42b40;
+  --patriot-white:     #f0ece4;
+  --patriot-white-dim: #9ca8b8;
+  --patriot-border:    #1e2e50;
+  --patriot-border-2:  #2a3f6e;
+  --patriot-gold:      #c9a45e;
+
+  --background: var(--patriot-navy);
+  --foreground: var(--patriot-white);
 }
 
 html {
@@ -24,14 +49,81 @@ html {
 }
 
 body {
-  background-color: #0c0a08;
-  color: #f0e8d8;
+  background-color: var(--patriot-navy);
+  color: var(--patriot-white);
   font-family: var(--cormorant-font, 'Georgia', serif);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Marquee animation */
+/* ── Button Classes ───────────────────────── */
+.btn-primary {
+  background: var(--patriot-red);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--jost-font, sans-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 1rem 1.75rem;
+  border-radius: 1rem;
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+}
+.btn-primary::before {
+  content: '★ ';
+  font-size: 0.75em;
+  opacity: 0.85;
+  margin-right: 0.25em;
+}
+.btn-primary:hover {
+  background: var(--patriot-red-light);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--jost-font, sans-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 1rem 1.75rem;
+  border-radius: 1rem;
+  border: 1px solid var(--patriot-border-2);
+  color: var(--patriot-white);
+  transition: border-color 0.2s ease, color 0.2s ease;
+  text-decoration: none;
+}
+.btn-ghost:hover {
+  border-color: var(--patriot-red);
+  color: var(--patriot-red-light);
+}
+
+/* ── Product Card ─────────────────────────── */
+.product-card {
+  background: var(--patriot-navy-card);
+  border: 1px solid var(--patriot-border);
+}
+
+/* ── Divider ──────────────────────────────── */
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--patriot-border-2), transparent);
+}
+
+/* ── Star Field Background ────────────────── */
+.star-bg {
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 60px 60px, 30px 30px;
+  background-position: 0 0, 15px 15px;
+}
+
+/* ── Marquee animation ────────────────────── */
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -40,7 +132,7 @@ body {
   animation: marquee 28s linear infinite;
 }
 
-/* Hero floating photo collage */
+/* ── Hero floating photo collage ──────────── */
 @keyframes hero-float {
   0%, 100% { transform: translateY(0) rotate(var(--hero-rotate, 0deg)); }
   50% { transform: translateY(-14px) rotate(var(--hero-rotate, 0deg)); }
@@ -53,7 +145,7 @@ body {
 .hero-float-2 { --hero-rotate: -1deg; animation-delay: 2.4s; }
 .hero-float-3 { --hero-rotate: 2deg; animation-delay: 0.6s; }
 
-/* Scroll-reveal (CSS-only on load) */
+/* ── Scroll-reveal (CSS-only on load) ──────── */
 @keyframes reveal-up {
   from {
     opacity: 0;
@@ -71,7 +163,7 @@ body {
 .reveal-delay-1 { animation-delay: 0.25s; opacity: 0; }
 .reveal-delay-2 { animation-delay: 0.4s; opacity: 0; }
 
-/* Ken Burns on hero background (legacy single-image) */
+/* ── Ken Burns on hero background ─────────── */
 @keyframes ken-burns {
   0% { transform: scale(1.05); }
   100% { transform: scale(1.12); }
@@ -80,7 +172,7 @@ body {
   animation: ken-burns 22s ease-in-out infinite alternate;
 }
 
-/* Hero slideshow: Ken Burns zoom on the active slide */
+/* ── Hero slideshow: Ken Burns on active slide */
 @keyframes kenburns {
   from { transform: scale(1.0); }
   to   { transform: scale(1.12); }
@@ -89,7 +181,7 @@ body {
   animation: kenburns 5500ms ease-in-out forwards;
 }
 
-/* Photo strip carousel */
+/* ── Photo strip carousel ─────────────────── */
 @keyframes photo-strip {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -100,17 +192,17 @@ body {
   width: max-content;
 }
 
-/* Card hover */
+/* ── Card hover ───────────────────────────── */
 .card-hover {
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .card-hover:hover {
   transform: translateY(-6px);
-  border-color: #c9a45e;
-  box-shadow: 0 16px 40px rgba(201, 164, 94, 0.12);
+  border-color: #b22234;
+  box-shadow: 0 16px 40px rgba(178, 34, 52, 0.18);
 }
 
-/* Image zoom on hover */
+/* ── Image zoom on hover ──────────────────── */
 .img-zoom {
   overflow: hidden;
 }
@@ -121,71 +213,71 @@ body {
   transform: scale(1.06);
 }
 
-/* Swatch selected ring */
+/* ── Swatch selected ring ─────────────────── */
 .swatch-selected {
-  outline: 2px solid #c9a45e;
+  outline: 2px solid #b22234;
   outline-offset: 2px;
   transform: scale(1.15);
 }
 
-/* Progress bar segment */
+/* ── Progress bar segment ─────────────────── */
 .progress-segment {
   transition: background-color 0.2s ease;
 }
 
-/* Accordion transition */
+/* ── Accordion transition ─────────────────── */
 .accordion-content {
   overflow: hidden;
   transition: max-height 0.35s ease, opacity 0.35s ease;
 }
 
-/* Gold horizontal rule */
+/* ── Red horizontal rule (was gold-rule) ───── */
 .gold-rule {
   width: 56px;
   height: 1px;
-  background-color: #c9a45e;
+  background-color: var(--patriot-red);
   display: inline-block;
 }
 
-/* Eyebrow label */
+/* ── Eyebrow label ────────────────────────── */
 .eyebrow {
   font-size: 10px;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: #c9a45e;
+  color: var(--patriot-red);
   font-family: var(--jost-font, sans-serif);
   font-weight: 500;
 }
 
-/* Playfair italic hero headline */
+/* ── Playfair italic hero headline ─────────── */
 .hero-italic {
   font-style: italic;
-  color: #c9a45e;
+  color: var(--patriot-red);
 }
 
-/* Nav transition */
+/* ── Nav transition ───────────────────────── */
 .nav-solid {
-  background-color: rgba(12, 10, 8, 0.95);
+  background-color: rgba(10, 22, 40, 0.96);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(201, 164, 94, 0.15);
+  border-bottom: 1px solid rgba(178, 34, 52, 0.25);
 }
 
-/* Focus styles */
+/* ── Focus styles ─────────────────────────── */
 *:focus-visible {
-  outline: 2px solid #c9a45e;
+  outline: 2px solid var(--patriot-red);
   outline-offset: 2px;
 }
 
-/* Select styling */
+/* ── Select styling ───────────────────────── */
 select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23c9a45e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23b22234' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   -webkit-appearance: none;
   appearance: none;
 }
 
-/* Stripe button loading */
+/* ── Stripe button loading ─────────────────── */
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
@@ -197,4 +289,71 @@ select {
   border-top-color: #000;
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
+}
+
+/* ── American-flag submit button ─────────────────────────── */
+@keyframes flag-shimmer {
+  0%   { left: -70%; }
+  100% { left: 130%; }
+}
+
+.flag-btn {
+  position: relative;
+  overflow: hidden;
+  background:
+    /* 3×2 white star grid over the blue canton */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 42 38'%3E%3Cg transform='scale(0.65) translate(4.8 4.4)'%3E%3Cpolygon points='8,2.5 9.1,5.5 12.8,5.5 9.8,7.8 10.9,11.1 8,9 5.1,11.1 6.2,7.8 3.2,5.5 6.9,5.5' fill='white' opacity='.85'/%3E%3Cpolygon points='21,2.5 22.1,5.5 25.8,5.5 22.8,7.8 23.9,11.1 21,9 18.1,11.1 19.2,7.8 16.2,5.5 19.9,5.5' fill='white' opacity='.85'/%3E%3Cpolygon points='34,2.5 35.1,5.5 38.8,5.5 35.8,7.8 36.9,11.1 34,9 31.1,11.1 32.2,7.8 29.2,5.5 32.9,5.5' fill='white' opacity='.85'/%3E%3Cpolygon points='47,2.5 48.1,5.5 51.8,5.5 48.8,7.8 49.9,11.1 47,9 44.1,11.1 45.2,7.8 42.2,5.5 45.9,5.5' fill='white' opacity='.85'/%3E%3Cpolygon points='8,14.5 9.1,17.5 12.8,17.5 9.8,19.8 10.9,23.1 8,21 5.1,23.1 6.2,19.8 3.2,17.5 6.9,17.5' fill='white' opacity='.85'/%3E%3Cpolygon points='21,14.5 22.1,17.5 25.8,17.5 22.8,19.8 23.9,23.1 21,21 18.1,23.1 19.2,19.8 16.2,17.5 19.9,17.5' fill='white' opacity='.85'/%3E%3Cpolygon points='34,14.5 35.1,17.5 38.8,17.5 35.8,19.8 36.9,23.1 34,21 31.1,23.1 32.2,19.8 29.2,17.5 32.9,17.5' fill='white' opacity='.85'/%3E%3Cpolygon points='47,14.5 48.1,17.5 51.8,17.5 48.8,19.8 49.9,23.1 47,21 44.1,23.1 45.2,19.8 42.2,17.5 45.9,17.5' fill='white' opacity='.85'/%3E%3Cpolygon points='8,26.5 9.1,29.5 12.8,29.5 9.8,31.8 10.9,35.1 8,33 5.1,35.1 6.2,31.8 3.2,29.5 6.9,29.5' fill='white' opacity='.85'/%3E%3Cpolygon points='21,26.5 22.1,29.5 25.8,29.5 22.8,31.8 23.9,35.1 21,33 18.1,35.1 19.2,31.8 16.2,29.5 19.9,29.5' fill='white' opacity='.85'/%3E%3Cpolygon points='34,26.5 35.1,29.5 38.8,29.5 35.8,31.8 36.9,35.1 34,33 31.1,35.1 32.2,31.8 29.2,29.5 32.9,29.5' fill='white' opacity='.85'/%3E%3Cpolygon points='47,26.5 48.1,29.5 51.8,29.5 48.8,31.8 49.9,35.1 47,33 44.1,35.1 45.2,31.8 42.2,29.5 45.9,29.5' fill='white' opacity='.85'/%3E%3Cpolygon points='8,38.5 9.1,41.5 12.8,41.5 9.8,43.8 10.9,47.1 8,45 5.1,47.1 6.2,43.8 3.2,41.5 6.9,41.5' fill='white' opacity='.85'/%3E%3Cpolygon points='21,38.5 22.1,41.5 25.8,41.5 22.8,43.8 23.9,47.1 21,45 18.1,47.1 19.2,43.8 16.2,41.5 19.9,41.5' fill='white' opacity='.85'/%3E%3Cpolygon points='34,38.5 35.1,41.5 38.8,41.5 35.8,43.8 36.9,47.1 34,45 31.1,47.1 32.2,43.8 29.2,41.5 32.9,41.5' fill='white' opacity='.85'/%3E%3Cpolygon points='47,38.5 48.1,41.5 51.8,41.5 48.8,43.8 49.9,47.1 47,45 44.1,47.1 45.2,43.8 42.2,41.5 45.9,41.5' fill='white' opacity='.85'/%3E%3C/g%3E%3C/svg%3E")
+    left center / 30% auto no-repeat,
+    /* Navy-blue canton */
+    linear-gradient(to right, #3C3B6E 0% 30%, transparent 30%),
+    /* Red-and-white stripes */
+    repeating-linear-gradient(
+      to bottom,
+      #B22234  0%,
+      #B22234  14.285%,
+      #FFFFFF  14.285%,
+      #FFFFFF  28.57%
+    );
+  color: white;
+  font-family: var(--jost-font, sans-serif);
+  text-shadow:
+  0 1px 4px rgba(0, 0, 0, 0.85),
+  0 1px 4px rgba(0, 0, 0, 0.85),
+  0 1px 4px rgba(0, 0, 0, 0.85);
+  transition: filter 0.25s ease;
+}
+
+.flag-btn:hover:not(:disabled) {
+  filter: brightness(1.12) saturate(1.1);
+}
+
+.flag-btn::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -70%;
+  width: 38%;
+  height: 140%;
+  background: linear-gradient(
+    100deg,
+    transparent 15%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 85%
+  );
+  pointer-events: none;
+}
+
+.flag-btn:hover:not(:disabled)::after {
+  animation: flag-shimmer 0.95s ease-in-out 1 forwards;
+}
+
+.flag-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* spinner is white inside a flag button */
+.flag-btn .spinner {
+  border-color: rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
 }

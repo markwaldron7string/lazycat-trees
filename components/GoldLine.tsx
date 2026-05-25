@@ -1,5 +1,5 @@
-// Reusable decorative gold horizontal rule used alongside eyebrow labels.
-// Usage: <GoldLine /> renders a 56×1 px warm-gold bar.
+// Reusable decorative rule used alongside eyebrow labels.
+// Uses patriot red to match the rethemed brand palette.
 
 export default function GoldLine() {
   return (
@@ -9,7 +9,7 @@ export default function GoldLine() {
         display: "inline-block",
         width: 56,
         height: 1,
-        backgroundColor: "#c9a45e",
+        backgroundColor: "#b22234",
         verticalAlign: "middle",
         flexShrink: 0,
       }}
@@ -17,10 +17,10 @@ export default function GoldLine() {
   );
 }
 
-/** Eyebrow label with flanking gold rules */
+/** Eyebrow label with flanking red rules */
 export function EyebrowLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center justify-center gap-3">
       <GoldLine />
       <span className="eyebrow">{children}</span>
       <GoldLine />

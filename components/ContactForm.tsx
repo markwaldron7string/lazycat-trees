@@ -89,7 +89,7 @@ export default function ContactForm({ type = "general", commission = false }: Co
   };
 
   const inputClass =
-    "w-full bg-stone-900 border border-stone-700 text-cream font-cormorant text-base px-4 py-3 outline-none focus:border-gold transition-colors placeholder:text-stone-600";
+    "w-full bg-white border border-stone-300 text-stone-900 font-cormorant text-base px-4 py-3 outline-none focus:border-gold transition-colors placeholder:text-stone-400";
 
   if (status === "success") {
     return (
@@ -270,13 +270,13 @@ export default function ContactForm({ type = "general", commission = false }: Co
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="flex items-center gap-3 font-jost text-sm font-semibold tracking-widest uppercase px-8 py-4 bg-gold text-stone-950 hover:bg-gold-light transition-colors disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+        className="flag-btn flex items-center gap-3 font-jost text-md font-bold tracking-widest uppercase px-8 py-4 cursor-pointer"
       >
         {status === "submitting" && <span className="spinner" aria-hidden="true" />}
         {status === "submitting"
           ? "Sending…"
           : commission
-          ? "Submit Commission Request"
+          ? "Submit Request"
           : "Send Message"}
       </button>
     </form>

@@ -3,6 +3,7 @@ import { Playfair_Display, Cormorant_Garamond, Jost } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import Fireworks from "@/components/Fireworks";
 
 // ── Font setup ────────────────────────────────
 const playfair = Playfair_Display({
@@ -68,6 +69,7 @@ export default function RootLayout({
       className={`${playfair.variable} ${cormorant.variable} ${jost.variable}`}
     >
       <body className="antialiased">
+        <Fireworks opacity={0.45} />
         <Nav />
         <main>{children}</main>
         <Footer />

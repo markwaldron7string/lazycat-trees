@@ -66,7 +66,7 @@ export default function ContactPage() {
               <div className="space-y-4">
                 {/* Location */}
                 <div className="flex items-start gap-3">
-                  <span className="mt-0.5 text-gold flex-shrink-0">
+                  <span className="mt-0.5 text-gold shrink-0">
                     <MapPinIcon />
                   </span>
                   <div>
@@ -79,7 +79,7 @@ export default function ContactPage() {
 
                 {/* Facebook */}
                 <div className="flex items-start gap-3">
-                  <span className="mt-0.5 text-gold flex-shrink-0">
+                  <span className="mt-0.5 text-gold shrink-0">
                     <FacebookIcon />
                   </span>
                   <div>
@@ -97,7 +97,7 @@ export default function ContactPage() {
 
                 {/* Etsy */}
                 <div className="flex items-start gap-3">
-                  <span className="mt-0.5 text-gold flex-shrink-0">
+                  <span className="mt-0.5 text-gold shrink-0">
                     <ShopIcon />
                   </span>
                   <div>

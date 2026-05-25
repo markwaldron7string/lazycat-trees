@@ -50,7 +50,7 @@ export const FEATURED_PRODUCT_IMAGES: Record<string, SiteImage> = {
     alt: "Grand six-level natural wood cat tree with green carpet",
   },
   pinnacle: {
-    src: "/images/tree-red-orange.png",
+    src: "/images/tree-7-level-stars.png",
     alt: "Pinnacle eight-level natural wood cat tree with red carpet",
   },
 };
@@ -82,13 +82,13 @@ export const LIFESTYLE_IMAGES: SiteImage[] = [
     caption: "Built for climbing together",
   },
   {
-    src: "/images/cat-grey-tabby.png",
-    alt: "Grey tabby cat relaxing on a LazyCat perch",
+    src: "/images/tree-4-level-store.png",
+    alt: "Beige carpeted cat tree",
     caption: "Handcrafted comfort",
   },
   {
-    src: "/images/cat-orange-lounge.png",
-    alt: "Orange cat lounging on a blue carpeted perch",
+    src: "/images/tree-7-level-green-alt.png",
+    alt: "Blue carpeted cat tree with kitten",
     caption: "Plush carpet, real wood",
   },
 ];

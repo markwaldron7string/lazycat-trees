@@ -8,7 +8,7 @@ export const BRAND = {
   location: "Cheyenne, Wyoming",
   email: "hello@lazycattrees.com",
   facebook: "https://www.facebook.com/lazycattrees",
-  etsy: "https://www.etsy.com/shop/LazyCatTrees",
+  etsy: "https://lazycattreesllc.etsy.com/",
 } as const;
 
 // ── Pricing ──────────────────────────────────
@@ -128,8 +128,8 @@ export const FEATURED_PRODUCTS: FeaturedProduct[] = [
     badge: "Signature",
     description:
       "Our most ambitious creation. Eight platforms of reclaimed natural wood, each one unique. A towering testament to feline luxury.",
-    imageSrc: "/images/tree-red-orange.png",
-    imageAlt: "Pinnacle eight-level natural wood cat tree",
+    imageSrc: "/images/tree-7-level-stars.png",
+    imageAlt: "Pinnacle seven-level natural wood cat tree",
   },
 ];
 
@@ -274,14 +274,13 @@ export const NAV_LINKS = [
 
 // ── Marquee Content ───────────────────────────
 export const MARQUEE_ITEMS = [
-  "Naturally Sourced Wood",
-  "Handcrafted to Order",
+  "Handcrafted in America",
+  "Natural Wyoming Wood",
   "One-of-a-Kind Designs",
   "Ships Nationwide",
-  "Award-Winning Artistry",
-  "Chemical-Free Materials",
-  "30-Day Build Time",
+  "American Made",
   "Supporting Cats Everywhere",
+  "30-Day Build Time",
 ];
 
 // ── Stats ─────────────────────────────────────
