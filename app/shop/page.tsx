@@ -21,7 +21,9 @@ export default function ShopPage() {
         </div>
 
         <ShopGallery />
-        <CatTree3DConfigurator />
+        <div id="3d-builder" className="scroll-mt-28">
+          <CatTree3DConfigurator />
+        </div>
       </div>
     </div>
   );

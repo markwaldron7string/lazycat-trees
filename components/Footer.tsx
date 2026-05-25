@@ -1,9 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 import { BRAND } from "@/lib/products";
 
 const SHOP_LINKS = [
   { href: "/shop",       label: "Configure Your Tree" },
-  { href: "/commission", label: "Custom Commission" },
+  { href: "/shop#3d-builder", label: "Custom Commission" },
   { href: "/success",    label: "Order Confirmation" },
 ];
 
@@ -39,10 +40,10 @@ export default function Footer() {
 
   return (
     <footer
-      className="border-t border-[#1e2e50]"
-      style={{ backgroundColor: 'var(--patriot-navy-2)' }}
+      className="border-[#1e2e50]"
+      style={{ backgroundColor: 'rgba(15, 31, 61, 0.55)' }}
     >
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
+      <div className="mx-auto max-w-7xl px-6 py-10 lg:px-10">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
           {/* Brand blurb */}
           <div className="md:col-span-1">
@@ -64,7 +65,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LazyCat Trees on Facebook"
-                className="flex items-center justify-center w-9 h-9 border border-[#1e2e50] text-stone-400 hover:border-[#b22234] hover:text-[#b22234] transition-colors"
+                className="flex items-center justify-center w-9 h-9 border border-[#1e2e50] text-stone-400 hover:border-white hover:text-white transition-colors duration-300"
               >
                 <FacebookIcon />
               </a>
@@ -73,7 +74,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LazyCat Trees on Etsy"
-                className="flex items-center justify-center w-9 h-9 border border-[#1e2e50] text-stone-400 hover:border-[#b22234] hover:text-[#b22234] transition-colors"
+                className="flex items-center justify-center w-9 h-9 border border-[#1e2e50] text-stone-400 hover:border-white hover:text-white transition-colors duration-300"
               >
                 <EtsyIcon />
               </a>
@@ -88,7 +89,7 @@ export default function Footer() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className="font-cormorant text-base text-stone-400 hover:text-cream transition-colors"
+                    className="font-cormorant text-base text-stone-400 hover:text-white transition-colors duration-300"
                   >
                     {label}
                   </Link>
@@ -105,7 +106,7 @@ export default function Footer() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className="font-cormorant text-base text-stone-400 hover:text-cream transition-colors"
+                    className="font-cormorant text-base text-stone-400 hover:text-white transition-colors duration-300"
                   >
                     {label}
                   </Link>
@@ -124,7 +125,7 @@ export default function Footer() {
                     href={href}
                     target={external ? "_blank" : undefined}
                     rel={external ? "noopener noreferrer" : undefined}
-                    className="font-cormorant text-base text-stone-400 hover:text-cream transition-colors"
+                    className="font-cormorant text-base text-stone-400 hover:text-white transition-colors duration-300"
                   >
                     {label}
                   </a>
@@ -143,10 +144,34 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-14 flex flex-col items-center gap-4 border-t border-[#1e2e50] pt-8 md:flex-row md:justify-between">
+        <div className="mt-6 translate-y-7 pb-5 cursor-default flex flex-col items-center gap-4 border-t border-[#1e2e50] pt-8 md:flex-row md:items-center md:justify-between">
           <p className="font-jost text-xs text-stone-500 tracking-widest uppercase">
             © {year} ★ LazyCat Trees, LLC — Proudly American Made 🇺🇸
           </p>
+
+          <span className="hidden md:block text-stone-600 text-sm">•</span>
+
+          {/* Attribution — centered */}
+          <a
+            href="https://mark-waldron.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-2"
+          >
+            <Image
+              src="/images/MW-Logo.png"
+              alt="Mark Waldron logo"
+              width={32}
+              height={32}
+              className="mw-logo"
+            />
+            <span className="mw-credit font-jost text-xs tracking-widest uppercase">
+              Site by Mark Waldron
+            </span>
+          </a>
+
+          <span className="hidden md:block text-stone-600 text-sm">•</span>
+
           <p className="font-jost text-xs text-stone-500 tracking-widest uppercase">
             All trees made to order · No returns or exchanges
           </p>

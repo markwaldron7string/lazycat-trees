@@ -50,6 +50,12 @@ html {
 
 body {
   background-color: var(--patriot-navy);
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 60px 60px, 30px 30px;
+  background-position: 0 0, 15px 15px;
+  background-attachment: fixed;
   color: var(--patriot-white);
   font-family: var(--cormorant-font, 'Georgia', serif);
   -webkit-font-smoothing: antialiased;
@@ -260,6 +266,35 @@ body {
   background-color: rgba(10, 22, 40, 0.96);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(178, 34, 52, 0.25);
+}
+
+/* ── MW Logo credit ───────────────────────── */
+.mw-logo {
+  /* Every function type must match the hover state at the same position
+     so CSS can interpolate smoothly in both directions.
+     drop-shadow colors use rgba() so opacity can animate (transparent can't). */
+  filter:
+    brightness(0) saturate(100%)
+    invert(17%) sepia(96%) saturate(700%)
+    hue-rotate(330deg) brightness(1) contrast(110%)
+    drop-shadow(0 0 0px rgba(0, 207, 255, 0))
+    drop-shadow(0 0 0px rgba(0, 144, 255, 0));
+  transition: filter 0.3s ease;
+}
+.mw-credit {
+  color: #78716c; /* stone-500 */
+  transition: color 0.3s ease;
+}
+.group:hover .mw-logo {
+  filter:
+    brightness(0) saturate(100%)
+    invert(55%) sepia(90%) saturate(600%)
+    hue-rotate(175deg) brightness(1.3) contrast(100%)
+    drop-shadow(0 0 6px rgba(0, 207, 255, 1))
+    drop-shadow(0 0 14px rgba(0, 144, 255, 1));
+}
+.group:hover .mw-credit {
+  color: #ffffff;
 }
 
 /* ── Focus styles ─────────────────────────── */

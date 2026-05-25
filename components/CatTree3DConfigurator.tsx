@@ -765,8 +765,8 @@ export default function CatTree3DConfigurator() {
           </div>
         </div>
 
-        <div className="bg-stone-900 border border-stone-800 p-5 space-y-3">
-          <p className="eyebrow mb-3">Order Summary</p>
+        <div className="bg-[#0f1f3d] border border-[#1e2e50] p-5 space-y-3">
+          <p className="eyebrow mb-3" style={{ color: '#b22234' }}>Order Summary</p>
 
           {[
             ["Tier", tierName],
@@ -778,32 +778,32 @@ export default function CatTree3DConfigurator() {
             ["Ships From", "Cheyenne, WY"],
           ].map(([label, value]) => (
             <div key={label} className="flex items-center justify-between">
-              <span className="font-jost text-sm text-stone-500 uppercase tracking-wider">
+              <span className="font-jost text-sm text-[#c9a45e] uppercase tracking-wider">
                 {label}
               </span>
-              <span className="font-jost text-sm text-stone-300">{value}</span>
+              <span className="font-jost text-sm font-semibold text-white">{value}</span>
             </div>
           ))}
 
-          <div className="border-t border-stone-800 pt-3 mt-3 flex items-center justify-between">
+          <div className="border-t border-[#1e2e50] pt-3 mt-3 flex items-center justify-between">
             <span className="font-jost text-xs text-stone-400 uppercase tracking-wider">
               Subtotal
             </span>
-            <span className="font-jost text-sm text-stone-300">{formatCurrency(price)}</span>
+            <span className="font-jost text-sm font-semibold text-white">{formatCurrency(price)}</span>
           </div>
           <div className="flex items-center justify-between">
             <span className="font-jost text-xs text-stone-400 uppercase tracking-wider">
               Shipping
             </span>
-            <span className="font-jost text-sm text-stone-300">
+            <span className="font-jost text-sm font-semibold text-white">
               {formatCurrency(SHIPPING_FLAT_RATE)}
             </span>
           </div>
-          <div className="border-t border-stone-800 pt-3 flex items-center justify-between">
-            <span className="font-jost text-xs text-cream uppercase tracking-wider font-semibold">
+          <div className="border-t border-[#1e2e50] pt-3 flex items-center justify-between">
+            <span className="font-jost text-xs text-white uppercase tracking-wider font-bold">
               Order Total
             </span>
-            <span className="font-jost text-base font-bold text-gold">
+            <span className="font-jost text-base font-bold text-[#c9a45e]">
               {formatCurrency(total)}
             </span>
           </div>

@@ -59,10 +59,10 @@ export default function Nav() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className={`font-jost text-sm tracking-widest uppercase transition-colors ${
+                    className={`font-jost text-sm tracking-widest uppercase transition-colors duration-300 ${
                       active
                         ? "text-[#b22234] border-b border-[#b22234] pb-0.5"
-                        : "text-cream/70 hover:text-cream"
+                        : "text-cream/70 hover:text-white"
                     }`}
                   >
                     {label}
@@ -119,8 +119,8 @@ export default function Nav() {
                 <Link
                   href={href}
                   onClick={closeMenu}
-                  className={`font-playfair text-3xl font-semibold transition-colors ${
-                    active ? "text-[#b22234]" : "text-cream hover:text-[#b22234]"
+                  className={`font-playfair text-3xl font-semibold transition-colors duration-300 ${
+                    active ? "text-[#b22234]" : "text-cream hover:text-white"
                   }`}
                 >
                   {label}
