@@ -106,14 +106,14 @@ export const STORY_IMAGES = {
     { src: "/images/detail-wood-branch.png", alt: "Natural wood branch detail" },
     { src: "/images/detail-carpet.png", alt: "Thick shag carpet on a platform" },
     { src: "/images/detail-sisal.png", alt: "Sisal rope wrapping detail" },
-    { src: "/images/tree-6-level-beige.png", alt: "Finished six-level cat tree" },
+    { src: "/images/tree-6-level-tan.png", alt: "Finished six-level cat tree" },
   ] as SiteImage[],
 };
 
 export const SHOP_GALLERY_IMAGES: SiteImage[] = [
   { src: "/images/tree-7-level-green.png", alt: "Seven-level green carpeted cat tree" },
   { src: "/images/tree-7-level-blue-kitten.png", alt: "Seven-level blue carpeted cat tree" },
-  { src: "/images/tree-6-level-beige.png", alt: "Six-level beige carpeted cat tree" },
+  { src: "/images/tree-6-level-tan.png", alt: "Six-level tan carpeted cat tree" },
   { src: "/images/tree-red-orange.png", alt: "Tall red carpeted cat tree" },
   { src: "/images/tree-beige-sisal.png", alt: "Beige cat tree with sisal scratching wrap" },
   { src: "/images/tree-truck-cat.png", alt: "Cat perched on a tall natural wood tree" },

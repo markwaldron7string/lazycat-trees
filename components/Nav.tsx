@@ -73,29 +73,29 @@ export default function Nav() {
           </ul>
 
           {/* Desktop CTA */}
-          <Link href="/shop" className="hidden md:inline-flex btn-primary">
-            Build Your Tree
+          <Link href="/shop" className="btn-primary !hidden md:!inline-flex">
+            Build &amp; Order
           </Link>
 
           {/* Mobile hamburger */}
           <button
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
-            className="md:hidden flex flex-col gap-1.5 p-2 cursor-pointer"
+            className="md:hidden flex flex-col gap-1.5 border border-[#b22234]/50 bg-[#0a1628]/70 p-2 backdrop-blur-sm cursor-pointer"
             onClick={() => setMenuOpen((o) => !o)}
           >
             <span
-              className={`block w-6 h-0.5 bg-cream transition-all duration-300 ${
+              className={`block w-6 h-0.5 bg-[#f0e8d8] transition-all duration-300 ${
                 menuOpen ? "rotate-45 translate-y-2" : ""
               }`}
             />
             <span
-              className={`block w-6 h-0.5 bg-cream transition-all duration-300 ${
+              className={`block w-6 h-0.5 bg-[#f0e8d8] transition-all duration-300 ${
                 menuOpen ? "opacity-0" : ""
               }`}
             />
             <span
-              className={`block w-6 h-0.5 bg-cream transition-all duration-300 ${
+              className={`block w-6 h-0.5 bg-[#f0e8d8] transition-all duration-300 ${
                 menuOpen ? "-rotate-45 -translate-y-2" : ""
               }`}
             />
@@ -132,7 +132,7 @@ export default function Nav() {
 
         <div className="mt-12">
           <Link href="/shop" onClick={closeMenu} className="btn-primary">
-            Build Your Tree
+            Build &amp; Order
           </Link>
         </div>
 

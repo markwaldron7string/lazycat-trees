@@ -201,13 +201,13 @@ export default function StoryPage() {
                 href="/shop"
                 className="inline-flex items-center font-jost text-sm font-semibold tracking-widest uppercase px-7 py-4 bg-gold text-stone-950 hover:bg-gold-light transition-colors"
               >
-                Configure Your Tree
+                Build &amp; Order
               </Link>
               <Link
                 href="/commission"
                 className="inline-flex items-center font-jost text-sm font-semibold tracking-widest uppercase px-7 py-4 border border-stone-700 text-cream hover:border-stone-500 transition-colors"
               >
-                Custom Commission
+                Custom Order
               </Link>
             </div>
 

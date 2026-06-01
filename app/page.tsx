@@ -75,9 +75,9 @@ export default function HomePage() {
       </div>
 
       {/* ═══════════════════════════════════════════
-          PATRIOT MARQUEE BAR
+          MADE-IN-AMERICA TRUST BAR
       ═══════════════════════════════════════════ */}
-      <div className="border-y border-[#b22234]/40 py-4 overflow-hidden" style={{ backgroundColor: '#b22234' }}>
+      <div className="border-y border-[#b22234]/25 bg-[#0f1f3d] py-3 overflow-hidden">
         <div
           className="flex gap-0 animate-marquee whitespace-nowrap"
           aria-hidden="true"
@@ -85,7 +85,7 @@ export default function HomePage() {
           {/* Duplicate for seamless loop */}
           {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
             <span key={i} className="inline-flex items-center gap-6 px-6">
-              <span className="text-white/80" aria-hidden="true">★</span>
+              <span className="text-[#b22234]" aria-hidden="true">★</span>
               <span className="font-jost text-xs tracking-widest uppercase text-white font-semibold">
                 {item}
               </span>
@@ -272,7 +272,7 @@ export default function HomePage() {
 
           <div className="mt-14 text-center">
             <Link href="/shop" className="btn-primary">
-              Start Configuring
+              Build &amp; Order
             </Link>
           </div>
         </div>
@@ -298,13 +298,13 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          COMMISSION CTA BANNER
+          CUSTOM ORDER CTA BANNER
       ═══════════════════════════════════════════ */}
       <section className="py-24 lg:py-32 bg-[#0a1628] border-t border-[#1e2e50] star-bg">
         <div className="mx-auto max-w-3xl px-6 text-center lg:px-10">
-          <EyebrowLabel>Custom Commission</EyebrowLabel>
+          <EyebrowLabel>Custom Order</EyebrowLabel>
           <h2 className="mt-6 font-playfair text-4xl font-bold text-cream leading-tight lg:text-5xl">
-            Commission Your
+            Request Your
             <br />
             <span className="italic text-[#b22234]">Dream Tree</span>
           </h2>
@@ -323,16 +323,13 @@ export default function HomePage() {
               >
                 <span>{theme.emoji}</span>
                 {theme.name}
-                {theme.built && (
-                  <span className="font-jost text-xs text-[#b22234]">✓ Built</span>
-                )}
               </span>
             ))}
           </div>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link href="/commission" className="btn-primary">
-              Start Your Commission
+              Start a Custom Order
             </Link>
             <Link href="/contact" className="btn-ghost">
               Ask a Question

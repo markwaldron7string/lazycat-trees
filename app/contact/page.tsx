@@ -124,18 +124,18 @@ export default function ContactPage() {
               </p>
             </div>
 
-            {/* Custom commission promo */}
+            {/* Custom order promo */}
             <div className="border border-gold/30 bg-stone-950 p-5">
               <p className="eyebrow mb-2">Want Something Custom?</p>
               <p className="font-cormorant text-sm text-stone-400 leading-relaxed mb-3">
-                For custom-themed trees, use our dedicated commission form for
+                For custom-themed trees, use our dedicated custom-order form for
                 the best experience.
               </p>
               <Link
                 href="/commission"
                 className="font-jost text-xs font-semibold tracking-widest uppercase text-gold hover:text-gold-light transition-colors"
               >
-                Commission Page →
+                Custom Order Page →
               </Link>
             </div>
           </div>

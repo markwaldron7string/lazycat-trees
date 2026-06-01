@@ -267,18 +267,18 @@ export default function ProductConfigurator() {
           Secure checkout via Stripe · Full payment due at time of order
         </p>
 
-        {/* Custom commission callout */}
+        {/* Custom order callout */}
         <div className="border border-stone-800 p-5">
           <p className="eyebrow mb-2">Want Something Unique?</p>
           <p className="font-cormorant text-base text-stone-400 leading-relaxed mb-4">
-            We build custom-themed trees — mushrooms, hieroglyphs, botanicals, and beyond.
+            We build custom-themed trees — mushroom caps, hieroglyphs, zebra stripes, and beyond.
             Tell us your vision and we'll bring it to life.
           </p>
           <a
             href="/commission"
             className="inline-flex font-jost text-xs font-semibold tracking-widest uppercase text-gold hover:text-gold-light transition-colors"
           >
-            Request a Custom Commission →
+            Request a Custom Order →
           </a>
         </div>
       </div>

@@ -67,6 +67,93 @@ export const CARPET_COLORS: CarpetColor[] = [
   { name: "Silver", hex: "#a8a8b0" },
 ];
 
+// ── Platform Design Themes ───────────────────
+export type PlatformPattern =
+  | "solid"
+  | "stars-stripes"
+  | "hieroglyphs"
+  | "mushrooms"
+  | "zebra"
+  | "celestial";
+
+export interface PlatformDesign {
+  id: string;
+  name: string;
+  shortName: string;
+  pattern: PlatformPattern;
+  baseHex: string;
+  accentHex: string;
+  secondaryHex: string;
+  description: string;
+}
+
+export const PLATFORM_DESIGNS: PlatformDesign[] = [
+  {
+    id: "solid",
+    name: "Solid Carpet",
+    shortName: "Solid",
+    pattern: "solid",
+    baseHex: "#d4c4a0",
+    accentHex: "#c9a45e",
+    secondaryHex: "#f0e8d8",
+    description: "A single carpet color across the tree.",
+  },
+  {
+    id: "stars-stripes",
+    name: "Stars & Stripes",
+    shortName: "USA",
+    pattern: "stars-stripes",
+    baseHex: "#0f1f3d",
+    accentHex: "#b22234",
+    secondaryHex: "#f0ece4",
+    description: "Patriotic red, cream, and navy patterning.",
+  },
+  {
+    id: "hieroglyphs",
+    name: "Egyptian Glyphs",
+    shortName: "Glyphs",
+    pattern: "hieroglyphs",
+    baseHex: "#c9a45e",
+    accentHex: "#1a140f",
+    secondaryHex: "#f1d98f",
+    description: "Gold-toned platforms with carved-symbol inspired marks.",
+  },
+  {
+    id: "mushrooms",
+    name: "Mushroom Grove",
+    shortName: "Mushroom",
+    pattern: "mushrooms",
+    baseHex: "#b22234",
+    accentHex: "#f0ece4",
+    secondaryHex: "#7a1f28",
+    description: "Red cap platforms with oversized white spots.",
+  },
+  {
+    id: "zebra",
+    name: "Zebra Stripes",
+    shortName: "Zebra",
+    pattern: "zebra",
+    baseHex: "#f0ece4",
+    accentHex: "#101010",
+    secondaryHex: "#d8ccb4",
+    description: "Black-and-cream striped platforms inspired by recent custom builds.",
+  },
+  {
+    id: "celestial",
+    name: "Celestial Night",
+    shortName: "Stars",
+    pattern: "celestial",
+    baseHex: "#111d36",
+    accentHex: "#c9a45e",
+    secondaryHex: "#f0ece4",
+    description: "Deep navy platforms with star-map details.",
+  },
+];
+
+export function getPlatformDesign(id: string): PlatformDesign {
+  return PLATFORM_DESIGNS.find((design) => design.id === id) ?? PLATFORM_DESIGNS[0];
+}
+
 // ── Wood Types ────────────────────────────────
 export const WOOD_TYPES = [
   { name: "Apple",   description: "Light, fine-grained, warm reddish tones" },
@@ -195,7 +282,7 @@ export const GALLERY_IMAGES = [
 export const SHOP_IMAGES = [
   { src: "/images/tree-7-level-green.png", alt: "Seven-level green carpeted cat tree" },
   { src: "/images/tree-7-level-blue-kitten.png", alt: "Seven-level blue carpeted cat tree" },
-  { src: "/images/tree-6-level-beige.png", alt: "Six-level beige carpeted cat tree" },
+  { src: "/images/tree-6-level-tan.png", alt: "Six-level tan carpeted cat tree" },
   { src: "/images/tree-red-orange.png", alt: "Tall red carpeted cat tree" },
   { src: "/images/tree-beige-sisal.png", alt: "Beige cat tree with sisal scratching wrap" },
   { src: "/images/tree-truck-cat.png", alt: "Cat perched on a tall natural wood tree" },
@@ -207,19 +294,25 @@ export const COMMISSION_THEMES = [
   {
     name: "Mushroom",
     emoji: "🍄",
-    description: "Already built — organic shapes, earthy tones, whimsical caps",
+    description: "Organic shapes, earthy tones, whimsical caps",
     built: true,
   },
   {
     name: "Egyptian Hieroglyphs",
     emoji: "𓂀",
-    description: "Suggested — carved symbols, gold leaf accents, ancient mystique",
+    description: "Carved symbols, gold leaf accents, ancient mystique",
     built: false,
   },
   {
-    name: "Forest / Botanical",
-    emoji: "🌿",
-    description: "Lush greenery palette, fern motifs, moss-inspired textures",
+    name: "Stars & Stripes",
+    emoji: "★",
+    description: "Patriotic red, white, and blue platform accents",
+    built: false,
+  },
+  {
+    name: "Zebra Stripes",
+    emoji: "▧",
+    description: "High-contrast black and cream striping",
     built: false,
   },
   {
@@ -260,14 +353,14 @@ export const FAQ_ITEMS = [
   {
     question: "Do you create custom-themed trees?",
     answer:
-      "Yes — this is one of our favorite offerings. We've already built a mushroom-themed tree and have designs in mind for Egyptian Hieroglyphs, Forest/Botanical, and Space/Celestial themes. Visit our Commission page to describe your vision.",
+      "Yes — this is one of our favorite offerings. We've already built a mushroom-themed tree and have designs in mind for Egyptian Hieroglyphs, Stars & Stripes, Zebra Stripes, and Space/Celestial themes. Visit the Custom Order page to describe your vision.",
   },
 ];
 
 // ── Nav Links ─────────────────────────────────
 export const NAV_LINKS = [
   { href: "/shop",       label: "Shop" },
-  { href: "/commission", label: "Commission" },
+  { href: "/commission", label: "Custom Order" },
   { href: "/story",      label: "Our Story" },
   { href: "/contact",    label: "Contact" },
 ] as const;
@@ -317,7 +410,7 @@ export const HOW_IT_WORKS_STEPS = [
     number: "01",
     title: "Choose",
     description:
-      "Select your number of platforms (2–8), carpet color from 14 options, and any custom touches.",
+      "Select your number of platforms (2–8), carpet color, platform theme, and any custom touches.",
   },
   {
     number: "02",

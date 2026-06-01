@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useEffect, useState, FormEvent } from "react";
 
 interface ContactFormProps {
   type?: "general" | "commission";
@@ -42,6 +42,33 @@ export default function ContactForm({ type = "general", commission = false }: Co
     platforms: "",
     hearAbout: HEAR_ABOUT_OPTIONS[0],
   });
+
+  useEffect(() => {
+    if (!commission || typeof window === "undefined") return;
+
+    const params = new URLSearchParams(window.location.search);
+    const design = params.get("design");
+    const palette = params.get("palette");
+    const platforms = params.get("platforms");
+
+    if (!design && !palette && !platforms) return;
+
+    setFields((prev) => ({
+      ...prev,
+      palette: prev.palette || palette || "",
+      platforms: prev.platforms || platforms || "",
+      vision:
+        prev.vision ||
+        [
+          "I would like to request a custom LazyCat tree.",
+          platforms ? `Approximate platforms: ${platforms}.` : "",
+          design ? `Design direction: ${design}.` : "",
+          palette ? `Palette/theme: ${palette}.` : "",
+        ]
+          .filter(Boolean)
+          .join(" "),
+    }));
+  }, [commission]);
 
   const set = (key: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setFields((prev) => ({ ...prev, [key]: e.target.value }));
@@ -100,7 +127,7 @@ export default function ContactForm({ type = "general", commission = false }: Co
           </svg>
         </div>
         <h3 className="font-playfair text-2xl font-semibold text-cream mb-3">
-          {commission ? "Commission Request Received" : "Message Sent"}
+          {commission ? "Custom Order Request Received" : "Message Sent"}
         </h3>
         <p className="font-cormorant text-lg text-stone-400 max-w-sm leading-relaxed">
           Thank you, {fields.name.split(" ")[0]}. We'll be in touch within 48 hours.

@@ -9,11 +9,11 @@ export default function ShopGallery() {
   const current = SHOP_GALLERY_IMAGES[active];
 
   return (
-    <div className="mb-14">
+    <div id="real-trees-built" className="mb-14 scroll-mt-28">
       <p className="eyebrow mb-3">Real Trees We&apos;ve Built</p>
       <p className="font-cormorant text-lg text-stone-400 max-w-2xl mb-6">
-        Every LazyCat tree is one of a kind. Browse recent builds while you configure yours in
-        the 3D preview below.
+        Every LazyCat tree is one of a kind. Browse recent builds for shape, carpet, and
+        finish inspiration after you dial in the 3D preview.
       </p>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.1fr_0.9fr]">

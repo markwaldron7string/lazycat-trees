@@ -1,59 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { STATS } from "@/lib/products";
 
-const SLIDES = [
-  { src: "/images/hero-slide-1.png", portrait: false },
-  { src: "/images/hero-slide-2.png", portrait: true  },
-  { src: "/images/hero-slide-3.png", portrait: true  },
-  { src: "/images/hero-slide-4.png", portrait: false },
-];
-
 export default function HeroSection() {
-  const [current, setCurrent] = useState(0);
-
-  useEffect(() => {
-    const t = setInterval(() => {
-      setCurrent((c) => (c + 1) % SLIDES.length);
-    }, 5000);
-    return () => clearInterval(t);
-  }, []);
-
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden star-bg">
-      {/* Slides — plain <img> avoids next/image fill constraints on crossfade */}
-      {SLIDES.map((slide, i) => (
-        <div
-          key={slide.src}
-          className="absolute inset-0 overflow-hidden transition-opacity duration-1000"
-          style={{ opacity: i === current ? 1 : 0 }}
-        >
-          {/* Layer 1: blurred backdrop — always fills the frame, hides letterbox bars */}
-          <img
-            src={slide.src}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            style={{ filter: "blur(24px)", transform: "scale(1.12)", opacity: 0.55 }}
-          />
-
-          {/* Layer 2: the actual image */}
-          {/* Portrait images use object-contain so the full tree height is visible;
-              landscape images use object-cover for a full-bleed look. */}
-          <img
-            src={slide.src}
-            alt=""
-            className="absolute inset-0 w-full h-full"
-            style={{
-              objectFit:      slide.portrait ? "contain" : "cover",
-              objectPosition: "center",
-              transform: i === current ? "scale(1.05)" : "scale(1)",
-              transition: "transform 5500ms ease-in-out",
-            }}
-          />
-        </div>
-      ))}
+    <section className="relative min-h-[92svh] flex items-center overflow-hidden star-bg">
+      <video
+        className="absolute inset-0 h-full w-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster="/videos/hero-poster.jpg"
+        aria-hidden="true"
+      >
+        <source src="/videos/hero-compilation.mp4" type="video/mp4" />
+      </video>
 
       {/* Gradient overlay — deep navy left (text readable), transparent right (image shows through) */}
       <div
@@ -90,10 +54,10 @@ export default function HeroSection() {
           {/* CTAs */}
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <Link href="/shop" className="btn-primary">
-              Build Your Tree
+              Build &amp; Order
             </Link>
-            <Link href="/story" className="btn-ghost">
-              Our Story
+            <Link href="/commission" className="btn-ghost">
+              Start Custom Order
             </Link>
           </div>
 

@@ -5,6 +5,7 @@ import { SHIPPING_FLAT_RATE, PLATFORM_NAMES } from "@/lib/products";
 interface CheckoutBody {
   platforms: number;
   color: string;
+  design?: string;
   price: number;
 }
 
@@ -18,7 +19,10 @@ export async function POST(req: NextRequest) {
 
   try {
     const body: CheckoutBody = await req.json();
-    const { platforms, color, price } = body;
+    const { platforms, color, design, price } = body;
+    const designSummary = typeof design === "string" && design.trim()
+      ? design.trim()
+      : `${color} Carpet`;
 
     // Validate inputs
     if (
@@ -44,7 +48,7 @@ export async function POST(req: NextRequest) {
             currency: "usd",
             product_data: {
               name: `Natural Wood Cat Tree — ${tierName} (${platforms} Platforms, ${color} Carpet)`,
-              description: `Handcrafted in Cheyenne, Wyoming. Sustainably sourced natural wood, sisal rope, ${color} carpet. ~30 day build time.`,
+              description: `Handcrafted in Cheyenne, Wyoming. Sustainably sourced natural wood, sisal rope, ${designSummary}. ~30 day build time.`,
             },
             unit_amount: price * 100, // cents
           },
@@ -62,11 +66,12 @@ export async function POST(req: NextRequest) {
           quantity: 1,
         },
       ],
-      success_url: `${siteUrl}/success?platforms=${platforms}&color=${encodeURIComponent(color)}`,
+      success_url: `${siteUrl}/success?platforms=${platforms}&color=${encodeURIComponent(color)}&design=${encodeURIComponent(designSummary)}`,
       cancel_url: `${siteUrl}/shop`,
       metadata: {
         platforms: String(platforms),
         color,
+        design: designSummary,
         tier: tierName,
       },
     });

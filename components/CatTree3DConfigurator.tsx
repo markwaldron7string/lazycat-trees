@@ -1,16 +1,21 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import * as THREE from "three";
 import {
   CARPET_COLORS,
   PLATFORM_NAMES,
+  PLATFORM_DESIGNS,
   MIN_PLATFORMS,
   MAX_PLATFORMS,
   PRICE_PER_PLATFORM,
   SHIPPING_FLAT_RATE,
+  getPlatformDesign,
   getPrice,
   formatCurrency,
+  type PlatformDesign,
 } from "@/lib/products";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
@@ -40,6 +45,45 @@ interface PlatformLayout {
   radius: number;
   isTop: boolean;
 }
+
+interface PlatformSelection {
+  design: PlatformDesign;
+  colorHex: string;
+}
+
+const SOLID_PREVIEW_SWATCHES = [
+  "#1a1a1a",
+  "#3b5fc0",
+  "#b82020",
+  "#1e7a3a",
+  "#7b3fa0",
+  "#d4c4a0",
+  "#c9a45e",
+  "#a8a8b0",
+] as const;
+
+const DESIGN_PREVIEW_IMAGES: Partial<
+  Record<PlatformDesign["pattern"], { src: string; position?: string; background?: string }>
+> = {
+  "stars-stripes": {
+    src: "/images/usaflag.png",
+    position: "50% 46%",
+  },
+  hieroglyphs: {
+    src: "/images/eyeofhorus.png",
+  },
+  mushrooms: {
+    src: "/images/mushrooms.png",
+    position: "50% 55%",
+  },
+  zebra: {
+    src: "/images/zebrastripes.png",
+    background: "#ffffff",
+  },
+  celestial: {
+    src: "/images/celestialnight.png",
+  },
+};
 
 function platformY(index: number): number {
   return BASE_HEIGHT + FIRST_PLATFORM_RISE + index * PLATFORM_SPACING;
@@ -132,14 +176,273 @@ function treeBounds(numPlatforms: number) {
   return { topY, spread, bottomY: 0 };
 }
 
-function createCarpetMaterial(hex: string): THREE.MeshStandardMaterial {
+function drawStar(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  outerRadius: number,
+  innerRadius: number,
+  fill: string,
+) {
+  ctx.beginPath();
+  for (let i = 0; i < 10; i++) {
+    const angle = -Math.PI / 2 + (i * Math.PI) / 5;
+    const r = i % 2 === 0 ? outerRadius : innerRadius;
+    ctx.lineTo(x + Math.cos(angle) * r, y + Math.sin(angle) * r);
+  }
+  ctx.closePath();
+  ctx.fillStyle = fill;
+  ctx.fill();
+}
+
+function drawCrescent(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  radius: number,
+  fill: string,
+  cutout: string,
+) {
+  ctx.fillStyle = fill;
+  ctx.beginPath();
+  ctx.arc(x, y, radius, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = cutout;
+  ctx.beginPath();
+  ctx.arc(x + radius * 0.42, y - radius * 0.14, radius * 0.92, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function drawDesignPattern(
+  ctx: CanvasRenderingContext2D,
+  design: PlatformDesign,
+  size: number,
+  levelIndex: number,
+) {
+  const accent = design.accentHex;
+  const secondary = design.secondaryHex;
+
+  if (design.pattern === "solid") return;
+
+  if (design.pattern === "stars-stripes") {
+    const variant = levelIndex % 3;
+    const starColor = "#ffffff";
+    const drawStarGrid = (
+      startX: number,
+      endX: number,
+      startY: number,
+      endY: number,
+      cols: number,
+      rows: number,
+      radius = 3.7,
+    ) => {
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const x = startX + ((col + 0.55) / cols) * (endX - startX);
+          const y = startY + ((row + 0.5) / rows) * (endY - startY);
+          drawStar(ctx, x, y, radius, radius * 0.45, starColor);
+        }
+      }
+    };
+
+    if (variant === 1) {
+      ctx.fillStyle = design.baseHex;
+      ctx.fillRect(0, 0, size, size);
+      drawStarGrid(8, size - 8, 10, size * 0.58, 7, 4, 3.4);
+
+      const stripeH = (size * 0.38) / 5;
+      for (let row = 0; row < 5; row++) {
+        ctx.fillStyle = row % 2 === 0 ? accent : secondary;
+        ctx.fillRect(0, size * 0.62 + row * stripeH, size, stripeH);
+      }
+      return;
+    }
+
+    if (variant === 2) {
+      const cantonW = size * 0.42;
+      ctx.fillStyle = design.baseHex;
+      ctx.fillRect(0, 0, cantonW, size);
+      const stripeH = size / 9;
+      for (let row = 0; row < 9; row++) {
+        ctx.fillStyle = row % 2 === 0 ? accent : secondary;
+        ctx.fillRect(cantonW, row * stripeH, size - cantonW, stripeH);
+      }
+      drawStarGrid(7, cantonW - 5, 8, size - 8, 3, 5, 3.2);
+      return;
+    }
+
+    const stripeH = size / 7;
+    for (let row = 0; row < 7; row++) {
+      ctx.fillStyle = row % 2 === 0 ? accent : secondary;
+      ctx.fillRect(0, row * stripeH, size, stripeH);
+    }
+    const cantonW = size * 0.5;
+    const cantonH = stripeH * 4.2;
+    ctx.fillStyle = design.baseHex;
+    ctx.fillRect(0, 0, cantonW, cantonH);
+    drawStarGrid(7, cantonW - 5, 8, cantonH - 5, 4, 3);
+    return;
+  }
+
+  if (design.pattern === "hieroglyphs") {
+    ctx.fillStyle = secondary;
+    ctx.fillRect(0, 0, size, size);
+
+    ctx.globalAlpha = 0.28;
+    ctx.fillStyle = design.baseHex;
+    for (let i = 0; i < 16; i++) {
+      const x = (i * 37 + levelIndex * 9) % size;
+      const y = (i * 23 + levelIndex * 13) % size;
+      ctx.beginPath();
+      ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    ctx.strokeStyle = accent;
+    ctx.fillStyle = accent;
+    ctx.lineWidth = 2.4;
+    const glyphs = ["𓂀", "𓆣", "𓃭", "𓇳"];
+    ctx.font = "30px serif";
+    for (let row = 0; row < 4; row++) {
+      for (let col = 0; col < 3; col++) {
+        const x = 12 + col * 40 + ((row + levelIndex) % 2) * 8;
+        const y = 28 + row * 30;
+        ctx.fillText(glyphs[(row + col + levelIndex) % glyphs.length], x, y);
+      }
+    }
+    return;
+  }
+
+  if (design.pattern === "mushrooms") {
+    ctx.fillStyle = design.baseHex;
+    ctx.fillRect(0, 0, size, size);
+
+    ctx.globalAlpha = 0.18;
+    ctx.fillStyle = secondary;
+    ctx.fillRect(0, size * 0.78, size, size * 0.22);
+    ctx.globalAlpha = 1;
+
+    const spots = [
+      [24, 28, 13],
+      [66, 20, 8],
+      [102, 35, 17],
+      [44, 70, 19],
+      [92, 82, 10],
+      [16, 108, 8],
+      [70, 116, 15],
+      [120, 112, 11],
+    ];
+    ctx.fillStyle = accent;
+    for (const [x, y, r] of spots) {
+      ctx.beginPath();
+      ctx.arc(
+        x + ((levelIndex % 2) * 5),
+        y + ((levelIndex % 3) * 3),
+        r,
+        0,
+        Math.PI * 2,
+      );
+      ctx.fill();
+    }
+
+    ctx.strokeStyle = "rgba(0,0,0,0.16)";
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(0, size * 0.78);
+    ctx.quadraticCurveTo(size * 0.5, size * 0.88, size, size * 0.78);
+    ctx.stroke();
+    return;
+  }
+
+  if (design.pattern === "zebra") {
+    ctx.fillStyle = design.baseHex;
+    ctx.fillRect(0, 0, size, size);
+
+    ctx.strokeStyle = accent;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    for (let stripe = -36; stripe < size + 52; stripe += 22) {
+      const wobble = ((stripe / 22 + levelIndex) % 3) * 8;
+      ctx.lineWidth = stripe % 44 === 0 ? 12 : 8;
+      ctx.beginPath();
+      ctx.moveTo(stripe, -10);
+      ctx.bezierCurveTo(
+        stripe + 34,
+        22 + wobble,
+        stripe - 18,
+        68 - wobble,
+        stripe + 28,
+        size + 12,
+      );
+      ctx.stroke();
+    }
+
+    ctx.globalAlpha = 0.35;
+    ctx.strokeStyle = secondary;
+    ctx.lineWidth = 3;
+    for (let stripe = -20; stripe < size + 30; stripe += 34) {
+      ctx.beginPath();
+      ctx.moveTo(stripe + 16, -8);
+      ctx.quadraticCurveTo(stripe - 8, 48, stripe + 18, size + 8);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    return;
+  }
+
+  if (design.pattern === "celestial") {
+    ctx.fillStyle = design.baseHex;
+    ctx.fillRect(0, 0, size, size);
+
+    drawCrescent(ctx, 96, 28, 12, secondary, design.baseHex);
+    drawCrescent(ctx, 28, 98, 8, accent, design.baseHex);
+
+    for (let i = 0; i < 24; i++) {
+      const x = (i * 29 + levelIndex * 17) % size;
+      const y = (i * 47 + levelIndex * 9) % size;
+      drawStar(
+        ctx,
+        x,
+        y,
+        i % 5 === 0 ? 5 : 3,
+        i % 5 === 0 ? 2 : 1.2,
+        i % 3 === 0 ? accent : secondary,
+      );
+    }
+
+    ctx.strokeStyle = "rgba(240,236,228,0.72)";
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(16, 92);
+    ctx.lineTo(48, 54);
+    ctx.lineTo(78, 70);
+    ctx.lineTo(110, 22);
+    ctx.stroke();
+
+    ctx.strokeStyle = "rgba(201,164,94,0.72)";
+    ctx.beginPath();
+    ctx.moveTo(14, 28);
+    ctx.lineTo(38, 18);
+    ctx.lineTo(58, 36);
+    ctx.lineTo(78, 20);
+    ctx.stroke();
+  }
+}
+
+function createCarpetMaterial(
+  design: PlatformDesign,
+  solidHex: string,
+  levelIndex = 0,
+): THREE.MeshStandardMaterial {
   const size = 128;
   const canvas = document.createElement("canvas");
   canvas.width = size;
   canvas.height = size;
   const ctx = canvas.getContext("2d")!;
 
-  const base = new THREE.Color(hex);
+  const baseHex = design.pattern === "solid" ? solidHex : design.baseHex;
+  const base = new THREE.Color(baseHex);
   ctx.fillStyle = `#${base.getHexString().padStart(6, "0")}`;
   ctx.fillRect(0, 0, size, size);
 
@@ -161,11 +464,24 @@ function createCarpetMaterial(hex: string): THREE.MeshStandardMaterial {
     ctx.lineTo(size, row);
     ctx.stroke();
   }
+  ctx.globalAlpha = 1;
+
+  drawDesignPattern(ctx, design, size, levelIndex);
 
   const tex = new THREE.CanvasTexture(canvas);
   tex.wrapS = THREE.RepeatWrapping;
   tex.wrapT = THREE.RepeatWrapping;
-  tex.repeat.set(4, 4);
+  const repeat =
+    design.pattern === "solid"
+      ? 4
+      : design.pattern === "mushrooms"
+        ? 1.35
+        : design.pattern === "stars-stripes"
+          ? 1.55
+          : design.pattern === "celestial"
+            ? 1.7
+            : 2;
+  tex.repeat.set(repeat, repeat);
 
   return new THREE.MeshStandardMaterial({
     map: tex,
@@ -174,6 +490,168 @@ function createCarpetMaterial(hex: string): THREE.MeshStandardMaterial {
     bumpMap: tex,
     bumpScale: 0.015,
   });
+}
+
+function PreviewStar({
+  x,
+  y,
+  size = 1,
+  fill = "#ffffff",
+}: {
+  x: number;
+  y: number;
+  size?: number;
+  fill?: string;
+}) {
+  return (
+    <polygon
+      points="0,-5 1.35,-1.7 4.9,-1.55 2.05,0.75 3.05,4.35 0,2.25 -3.05,4.35 -2.05,0.75 -4.9,-1.55 -1.35,-1.7"
+      transform={`translate(${x} ${y}) scale(${size})`}
+      fill={fill}
+    />
+  );
+}
+
+function DesignPreview({ design }: { design: PlatformDesign }) {
+  const swatchClass = "block h-9 w-full overflow-hidden border border-white/10 bg-stone-900";
+  const previewImage = DESIGN_PREVIEW_IMAGES[design.pattern];
+
+  if (design.pattern === "solid") {
+    return (
+      <svg className={swatchClass} viewBox="0 0 560 70" preserveAspectRatio="none" aria-hidden="true">
+        {SOLID_PREVIEW_SWATCHES.map((color, i) => (
+          <rect key={color} x={i * 70} y="0" width="70" height="70" fill={color} />
+        ))}
+        <rect x="0" y="0" width="560" height="70" fill="none" stroke="rgba(255,255,255,0.12)" />
+      </svg>
+    );
+  }
+
+  if (previewImage) {
+    return (
+      <span
+        className={`${swatchClass} relative`}
+        style={{ backgroundColor: previewImage.background }}
+        aria-hidden="true"
+      >
+        <Image
+          src={previewImage.src}
+          alt=""
+          fill
+          className="object-cover"
+          sizes="(max-width: 640px) 45vw, 180px"
+          style={{ objectPosition: previewImage.position ?? "center" }}
+        />
+      </span>
+    );
+  }
+
+  if (design.pattern === "stars-stripes") {
+    const stripeHeight = 10;
+    return (
+      <svg className={swatchClass} viewBox="0 0 560 70" preserveAspectRatio="none" aria-hidden="true">
+        {Array.from({ length: 7 }, (_, row) => (
+          <rect
+            key={row}
+            x="0"
+            y={row * stripeHeight}
+            width="560"
+            height={stripeHeight}
+            fill={row % 2 === 0 ? design.accentHex : design.secondaryHex}
+          />
+        ))}
+        <rect x="0" y="0" width="224" height="40" fill={design.baseHex} />
+        {[18, 54, 90, 126, 162, 198].map((x, i) => (
+          <PreviewStar key={x} x={x} y={i % 2 === 0 ? 14 : 28} size={1.15} />
+        ))}
+        {[36, 72, 108, 144, 180].map((x) => (
+          <PreviewStar key={x} x={x} y={21} size={0.95} />
+        ))}
+      </svg>
+    );
+  }
+
+  if (design.pattern === "hieroglyphs") {
+    return (
+      <svg className={swatchClass} viewBox="0 0 560 70" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="glyph-gold" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0%" stopColor={design.secondaryHex} />
+            <stop offset="100%" stopColor={design.baseHex} />
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="560" height="70" fill="url(#glyph-gold)" />
+        <path
+          d="M145 35 C190 8 278 8 332 35 C278 62 190 62 145 35Z"
+          fill="none"
+          stroke={design.accentHex}
+          strokeWidth="6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <circle cx="240" cy="35" r="14" fill="none" stroke={design.accentHex} strokeWidth="5" />
+        <circle cx="240" cy="35" r="6" fill={design.accentHex} />
+        <path
+          d="M305 44 C322 55 318 65 302 68"
+          fill="none"
+          stroke={design.accentHex}
+          strokeWidth="5"
+          strokeLinecap="round"
+        />
+        <path
+          d="M190 45 C174 57 152 58 134 50"
+          fill="none"
+          stroke={design.accentHex}
+          strokeWidth="5"
+          strokeLinecap="round"
+        />
+      </svg>
+    );
+  }
+
+  if (design.pattern === "mushrooms") {
+    return (
+      <svg className={swatchClass} viewBox="0 0 560 70" preserveAspectRatio="none" aria-hidden="true">
+        <rect x="0" y="0" width="560" height="70" fill={design.baseHex} />
+        <circle cx="120" cy="30" r="20" fill={design.accentHex} />
+        <circle cx="250" cy="38" r="13" fill={design.accentHex} />
+        <circle cx="390" cy="25" r="24" fill={design.accentHex} />
+        <circle cx="505" cy="42" r="15" fill={design.accentHex} />
+      </svg>
+    );
+  }
+
+  if (design.pattern === "zebra") {
+    return (
+      <svg className={swatchClass} viewBox="0 0 560 70" preserveAspectRatio="none" aria-hidden="true">
+        <rect x="0" y="0" width="560" height="70" fill={design.baseHex} />
+        <path d="M42 -8 C70 14 58 44 86 78 L120 78 C92 42 108 12 76 -8Z" fill={design.accentHex} />
+        <path d="M176 -8 C206 18 182 42 216 78 L256 78 C226 42 250 18 218 -8Z" fill={design.accentHex} />
+        <path d="M320 -8 C356 16 334 48 368 78 L410 78 C378 40 398 14 360 -8Z" fill={design.accentHex} />
+        <path d="M472 -8 C508 18 490 46 528 78 L568 78 C536 40 554 14 516 -8Z" fill={design.accentHex} />
+      </svg>
+    );
+  }
+
+  return (
+    <svg className={swatchClass} viewBox="0 0 560 70" preserveAspectRatio="none" aria-hidden="true">
+      <rect x="0" y="0" width="560" height="70" fill={design.baseHex} />
+      <circle cx="390" cy="28" r="18" fill={design.secondaryHex} />
+      <circle cx="407" cy="24" r="17" fill={design.baseHex} />
+      <PreviewStar x={100} y={25} size={1.15} fill={design.accentHex} />
+      <PreviewStar x={170} y={45} size={0.78} fill={design.secondaryHex} />
+      <PreviewStar x={275} y={24} size={0.9} fill={design.secondaryHex} />
+      <PreviewStar x={485} y={44} size={1.05} fill={design.accentHex} />
+      <path
+        d="M80 50 L145 28 L220 45 L300 20"
+        fill="none"
+        stroke="rgba(240,236,228,0.72)"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
 }
 
 function positionCamera(
@@ -378,15 +856,51 @@ export default function CatTree3DConfigurator() {
 
   const [platforms, setPlatforms] = useState(3);
   const [selectedColor, setSelectedColor] = useState(CARPET_COLORS[0]);
+  const [selectedDesignId, setSelectedDesignId] = useState(PLATFORM_DESIGNS[0].id);
+  const [mixPlatforms, setMixPlatforms] = useState(false);
+  const [platformDesignIds, setPlatformDesignIds] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState("");
 
   const price = getPrice(platforms);
   const total = price + SHIPPING_FLAT_RATE;
   const tierName = PLATFORM_NAMES[platforms];
+  const selectedDesign = getPlatformDesign(selectedDesignId);
+  const platformSelections = useMemo<PlatformSelection[]>(() => {
+    return Array.from({ length: platforms }, (_, i) => {
+      const designId = mixPlatforms
+        ? platformDesignIds[i] ?? selectedDesignId
+        : selectedDesignId;
+      return {
+        design: getPlatformDesign(designId),
+        colorHex: selectedColor.hex,
+      };
+    });
+  }, [platforms, mixPlatforms, platformDesignIds, selectedDesignId, selectedColor.hex]);
+  const usesSolidCarpet = platformSelections.some(
+    ({ design }) => design.pattern === "solid",
+  );
+  const designSummary = mixPlatforms
+    ? platformSelections
+        .map(({ design }, i) => `P${i + 1}: ${design.shortName}`)
+        .join(", ")
+    : selectedDesign.pattern === "solid"
+      ? `${selectedColor.name} Solid Carpet`
+      : selectedDesign.name;
+  const requiresCustomQuote = mixPlatforms || selectedDesign.pattern !== "solid";
+  const customOrderHref =
+    `/commission?platforms=${platforms}` +
+    `&design=${encodeURIComponent(designSummary)}` +
+    `&palette=${encodeURIComponent(
+      selectedDesign.pattern === "solid" ? selectedColor.name : selectedDesign.name,
+    )}`;
 
   const buildTree = useCallback(
-    (scene: THREE.Scene, numPlatforms: number, carpetHex: string) => {
+    (
+      scene: THREE.Scene,
+      numPlatforms: number,
+      selections: PlatformSelection[],
+    ) => {
       const old = scene.getObjectByName("treeGroup");
       if (old) {
         scene.remove(old);
@@ -408,7 +922,14 @@ export default function CatTree3DConfigurator() {
       const group = new THREE.Group();
       group.name = "treeGroup";
 
-      const carpetMat = createCarpetMaterial(carpetHex);
+      const fallbackSelection = selections[0] ?? {
+        design: PLATFORM_DESIGNS[0],
+        colorHex: CARPET_COLORS[0].hex,
+      };
+      const baseCarpetMat = createCarpetMaterial(
+        fallbackSelection.design,
+        fallbackSelection.colorHex,
+      );
       const woodMat = new THREE.MeshStandardMaterial({
         color: new THREE.Color(0xa89070),
         roughness: 0.82,
@@ -450,7 +971,7 @@ export default function CatTree3DConfigurator() {
       // Carpeted base pad — visually distinct from elevated perches
       const basePad = new THREE.Mesh(
         new THREE.CylinderGeometry(BASE_RADIUS, BASE_RADIUS * 0.97, BASE_HEIGHT * 0.45, 28),
-        carpetMat,
+        baseCarpetMat,
       );
       basePad.position.y = BASE_HEIGHT * 0.78;
       basePad.castShadow = false;
@@ -461,7 +982,9 @@ export default function CatTree3DConfigurator() {
 
       buildTreeBranches(group, platformLayouts, barkMat, barkLightMat);
 
-      platformLayouts.forEach((plat) => {
+      platformLayouts.forEach((plat, i) => {
+        const selection = selections[i] ?? fallbackSelection;
+        const carpetMat = createCarpetMaterial(selection.design, selection.colorHex, i + 1);
         const platMesh = new THREE.Mesh(
           new THREE.CylinderGeometry(plat.radius, plat.radius * 0.94, PLATFORM_THICKNESS, 28),
           carpetMat,
@@ -533,13 +1056,15 @@ export default function CatTree3DConfigurator() {
     renderer.setSize(w, h);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.type = THREE.PCFShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.15;
     container.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    buildTree(scene, platforms, CARPET_COLORS[0].hex);
+    buildTree(scene, platforms, [
+      { design: PLATFORM_DESIGNS[0], colorHex: CARPET_COLORS[0].hex },
+    ]);
 
     let fId = 0;
     let prevT = 0;
@@ -582,9 +1107,9 @@ export default function CatTree3DConfigurator() {
 
   useEffect(() => {
     if (!sceneRef.current) return;
-    buildTree(sceneRef.current, platforms, selectedColor.hex);
+    buildTree(sceneRef.current, platforms, platformSelections);
     updateCamera(platforms);
-  }, [platforms, selectedColor, buildTree, updateCamera]);
+  }, [platforms, platformSelections, buildTree, updateCamera]);
 
   const onPointerDown = useCallback((e: React.PointerEvent) => {
     isDragging.current = true;
@@ -616,7 +1141,12 @@ export default function CatTree3DConfigurator() {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ platforms, color: selectedColor.name, price }),
+        body: JSON.stringify({
+          platforms,
+          color: selectedColor.name,
+          design: designSummary,
+          price,
+        }),
       });
       const data = await res.json();
       if (!res.ok || !data.url) {
@@ -631,6 +1161,13 @@ export default function CatTree3DConfigurator() {
 
   const decrement = () => setPlatforms((p) => Math.max(MIN_PLATFORMS, p - 1));
   const increment = () => setPlatforms((p) => Math.min(MAX_PLATFORMS, p + 1));
+  const setPlatformDesign = (index: number, designId: string) => {
+    setPlatformDesignIds((prev) => {
+      const next = [...prev];
+      next[index] = designId;
+      return next;
+    });
+  };
 
   return (
     <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
@@ -733,37 +1270,131 @@ export default function CatTree3DConfigurator() {
         </div>
 
         <div>
-          <div className="flex items-center justify-between mb-4">
-            <p className="eyebrow">Carpet Color</p>
-            <span className="font-cormorant text-sm text-gold font-semibold">
-              {selectedColor.name}
-            </span>
+          <div className="flex items-center justify-between gap-4 mb-4">
+            <div>
+              <p className="eyebrow">Platform Design</p>
+              <p className="mt-1 font-cormorant text-sm text-stone-500">
+                Choose one look or mix designs by platform.
+              </p>
+            </div>
+            <label className="flex items-center gap-3 cursor-pointer">
+              <span className="font-jost text-xs uppercase tracking-widest text-stone-400">
+                Mix
+              </span>
+              <input
+                type="checkbox"
+                checked={mixPlatforms}
+                onChange={(e) => setMixPlatforms(e.target.checked)}
+                className="sr-only"
+              />
+              <span
+                className={`relative inline-flex h-6 w-11 items-center rounded-full border transition-colors ${
+                  mixPlatforms
+                    ? "border-gold bg-gold/30"
+                    : "border-stone-700 bg-stone-950"
+                }`}
+                aria-hidden="true"
+              >
+                <span
+                  className={`inline-block h-4 w-4 rounded-full bg-cream transition-transform ${
+                    mixPlatforms ? "translate-x-5" : "translate-x-1"
+                  }`}
+                />
+              </span>
+            </label>
           </div>
 
-          <div className="grid grid-cols-7 gap-2">
-            {CARPET_COLORS.map((color) => {
-              const isSelected = selectedColor.name === color.name;
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+            {PLATFORM_DESIGNS.map((design) => {
+              const isSelected = selectedDesignId === design.id && !mixPlatforms;
               return (
                 <button
-                  key={color.name}
-                  onClick={() => setSelectedColor(color)}
-                  aria-label={`Select ${color.name} carpet`}
-                  title={color.name}
-                  className={`aspect-square w-full rounded-sm cursor-pointer transition-all duration-150 ${
+                  key={design.id}
+                  type="button"
+                  onClick={() => setSelectedDesignId(design.id)}
+                  className={`flex min-h-24 flex-col justify-between border p-3 text-left transition-colors cursor-pointer ${
                     isSelected
-                      ? "ring-2 ring-gold ring-offset-2 ring-offset-background scale-110"
-                      : "hover:scale-105"
-                  } ${
-                    color.name === "White" || color.name === "Beige"
-                      ? "border border-stone-700"
-                      : ""
+                      ? "border-gold bg-[#111d36]"
+                      : "border-stone-800 bg-stone-950 hover:border-stone-600"
                   }`}
-                  style={{ backgroundColor: color.hex }}
-                />
+                  aria-pressed={isSelected}
+                >
+                  <DesignPreview design={design} />
+                  <span className="mt-3 font-jost text-xs font-semibold uppercase tracking-widest text-cream">
+                    {design.name}
+                  </span>
+                  <span className="mt-1 font-cormorant text-xs leading-snug text-stone-500">
+                    {design.description}
+                  </span>
+                </button>
               );
             })}
           </div>
+
+          {mixPlatforms && (
+            <div className="mt-4 border border-stone-800 bg-stone-950 p-4">
+              <p className="eyebrow mb-3">Platform Mix</p>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {platformSelections.map(({ design }, i) => (
+                  <label key={i} className="block">
+                    <span className="mb-1 block font-jost text-xs uppercase tracking-widest text-stone-500">
+                      Platform {i + 1}
+                    </span>
+                    <select
+                      value={design.id}
+                      onChange={(e) => setPlatformDesign(i, e.target.value)}
+                      className="w-full border border-stone-700 bg-[#0a1628] px-3 py-2 pr-9 font-cormorant text-sm text-cream outline-none focus:border-gold"
+                    >
+                      {PLATFORM_DESIGNS.map((option) => (
+                        <option key={option.id} value={option.id}>
+                          {option.name}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                ))}
+              </div>
+              <p className="mt-3 font-cormorant text-sm leading-relaxed text-stone-500">
+                The base pad follows Platform 1. The final layout, artwork, and any custom-art pricing are confirmed before the build starts.
+              </p>
+            </div>
+          )}
         </div>
+
+        {usesSolidCarpet && (
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <p className="eyebrow">Solid Carpet Color</p>
+              <span className="font-cormorant text-sm text-gold font-semibold">
+                {selectedColor.name}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-7 gap-2">
+              {CARPET_COLORS.map((color) => {
+                const isSelected = selectedColor.name === color.name;
+                return (
+                  <button
+                    key={color.name}
+                    onClick={() => setSelectedColor(color)}
+                    aria-label={`Select ${color.name} carpet`}
+                    title={color.name}
+                    className={`aspect-square w-full rounded-sm cursor-pointer transition-all duration-150 ${
+                      isSelected
+                        ? "ring-2 ring-gold ring-offset-2 ring-offset-background scale-110"
+                        : "hover:scale-105"
+                    } ${
+                      color.name === "White" || color.name === "Beige"
+                        ? "border border-stone-700"
+                        : ""
+                    }`}
+                    style={{ backgroundColor: color.hex }}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         <div className="bg-[#0f1f3d] border border-[#1e2e50] p-5 space-y-3">
           <p className="eyebrow mb-3" style={{ color: '#b22234' }}>Order Summary</p>
@@ -771,17 +1402,18 @@ export default function CatTree3DConfigurator() {
           {[
             ["Tier", tierName],
             ["Platforms", `${platforms} platforms`],
-            ["Carpet Color", selectedColor.name],
+            ["Design", designSummary],
+            ...(usesSolidCarpet ? [["Solid Color", selectedColor.name]] : []),
             ["Base Diameter", '24"'],
             ["Sisal Wrapping", "Included"],
             ["Build Time", "~30 days"],
             ["Ships From", "Cheyenne, WY"],
           ].map(([label, value]) => (
-            <div key={label} className="flex items-center justify-between">
+            <div key={label} className="flex items-start justify-between gap-4">
               <span className="font-jost text-sm text-[#c9a45e] uppercase tracking-wider">
                 {label}
               </span>
-              <span className="font-jost text-sm font-semibold text-white">{value}</span>
+              <span className="text-right font-jost text-sm font-semibold text-white">{value}</span>
             </div>
           ))}
 
@@ -815,31 +1447,42 @@ export default function CatTree3DConfigurator() {
           </p>
         )}
 
-        <button
-          onClick={handleCheckout}
-          disabled={loading}
-          className="flex w-full items-center justify-center gap-3 rounded-2xl font-jost text-base font-semibold tracking-widest uppercase px-8 py-5 bg-gold text-stone-950 hover:bg-gold-light transition-colors disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
-        >
-          {loading && <span className="spinner" aria-hidden="true" />}
-          {loading ? "Redirecting to Checkout…" : `Order Now — ${formatCurrency(total)}`}
-        </button>
+        {requiresCustomQuote ? (
+          <Link
+            href={customOrderHref}
+            className="flex w-full items-center justify-center gap-3 rounded-2xl font-jost text-base font-semibold tracking-widest uppercase px-8 py-5 bg-gold text-stone-950 hover:bg-gold-light transition-colors"
+          >
+            Request Custom Order — {formatCurrency(total)} Base
+          </Link>
+        ) : (
+          <button
+            onClick={handleCheckout}
+            disabled={loading}
+            className="flex w-full items-center justify-center gap-3 rounded-2xl font-jost text-base font-semibold tracking-widest uppercase px-8 py-5 bg-gold text-stone-950 hover:bg-gold-light transition-colors disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+          >
+            {loading && <span className="spinner" aria-hidden="true" />}
+            {loading ? "Redirecting to Checkout…" : `Order Now — ${formatCurrency(total)}`}
+          </button>
+        )}
 
         <p className="text-center font-jost text-xs text-stone-500 tracking-wide">
-          Secure checkout via Stripe · Full payment due at time of order
+          {requiresCustomQuote
+            ? "Themed and mixed-platform builds start from standard pricing; final custom-art pricing is confirmed before payment."
+            : "Secure checkout via Stripe · Full payment due at time of order"}
         </p>
 
         <div className="border border-stone-800 p-5">
           <p className="eyebrow mb-2">Want Something Unique?</p>
           <p className="font-cormorant text-base text-stone-400 leading-relaxed mb-4">
-            We build custom-themed trees — mushrooms, hieroglyphs, botanicals, and beyond.
+            We build custom-themed trees — mushroom caps, hieroglyphs, zebra stripes, and beyond.
             Tell us your vision and we&apos;ll bring it to life.
           </p>
-          <a
+          <Link
             href="/commission"
             className="inline-flex font-jost text-xs font-semibold tracking-widest uppercase text-gold hover:text-gold-light transition-colors"
           >
-            Request a Custom Commission →
-          </a>
+            Request a Custom Order →
+          </Link>
         </div>
       </div>
     </div>

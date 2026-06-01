@@ -3,8 +3,8 @@ import Image from "next/image";
 import { BRAND } from "@/lib/products";
 
 const SHOP_LINKS = [
-  { href: "/shop",       label: "Configure Your Tree" },
-  { href: "/shop#3d-builder", label: "Custom Commission" },
+  { href: "/shop",       label: "Build & Order" },
+  { href: "/commission", label: "Custom Order" },
   { href: "/success",    label: "Order Confirmation" },
 ];
 
@@ -164,6 +164,7 @@ export default function Footer() {
               width={32}
               height={32}
               className="mw-logo"
+              style={{ width: 32, height: "auto" }}
             />
             <span className="mw-credit font-jost text-xs tracking-widest uppercase">
               Site by Mark Waldron

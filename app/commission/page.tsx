@@ -6,9 +6,9 @@ import { EyebrowLabel } from "@/components/GoldLine";
 import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
-  title: "Custom Commission — Design a One-of-a-Kind Cat Tree",
+  title: "Custom Order — Design a One-of-a-Kind Cat Tree",
   description:
-    "Describe your dream cat tree and we'll build it. Mushroom themes, Egyptian hieroglyphs, botanical, celestial — any vision welcome. Custom orders from LazyCat Trees.",
+    "Describe your dream cat tree and we'll build it. Mushroom themes, Egyptian hieroglyphs, zebra stripes, celestial designs — any vision welcome. Custom orders from LazyCat Trees.",
 };
 
 export default function CommissionPage() {
@@ -26,7 +26,7 @@ export default function CommissionPage() {
         />
         <div className="absolute inset-0 bg-linear-to-t from-background via-background/50 to-background/20" />
         <div className="absolute bottom-8 left-0 right-0 mx-auto max-w-7xl px-6 lg:px-10">
-          <EyebrowLabel>Custom Commission</EyebrowLabel>
+          <EyebrowLabel>Custom Order</EyebrowLabel>
           <h1 className="mt-4 font-playfair text-4xl font-bold text-cream lg:text-5xl">
             Your Vision, <span className="italic text-gold">Handcrafted</span>
           </h1>
@@ -36,7 +36,7 @@ export default function CommissionPage() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
 
         <p className="font-cormorant text-xl leading-relaxed text-stone-400 max-w-2xl mb-16 -mt-4">
-          Every LazyCat tree is already one of a kind — but a custom commission takes it
+          Every LazyCat tree is already one of a kind — but a custom order takes it
           further. Tell us your theme, your mood, your inspiration. We&apos;ll bring it to
           life in natural wood, sisal, and carefully chosen carpet.
         </p>
@@ -62,11 +62,6 @@ export default function CommissionPage() {
                   <h3 className="font-playfair text-lg font-semibold text-cream">
                     {theme.name}
                   </h3>
-                  {theme.built && (
-                    <span className="font-jost text-xs text-gold border border-gold/40 px-2 py-0.5">
-                      Built
-                    </span>
-                  )}
                 </div>
                 <p className="font-cormorant text-sm leading-relaxed text-stone-400">
                   {theme.description}
@@ -78,7 +73,7 @@ export default function CommissionPage() {
 
         {/* Process note */}
         <div className="mb-16 border border-stone-800 bg-stone-950 p-8 max-w-2xl">
-          <p className="eyebrow mb-4">How Commissions Work</p>
+          <p className="eyebrow mb-4">How Custom Orders Work</p>
           <ol className="space-y-4">
             {[
               "Submit the form below with your vision, color palette, and approximate size.",

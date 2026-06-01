@@ -20,7 +20,7 @@ function buildEmailHtml(body: ContactBody): string {
 
   const rows = isCommission
     ? [
-        ["Type",          "Commission Request"],
+        ["Type",          "Custom Order Request"],
         ["Name",          body.name],
         ["Email",         body.email],
         ["Phone",         body.phone || "Not provided"],
@@ -62,7 +62,7 @@ function buildEmailHtml(body: ContactBody): string {
         LazyCat Trees
       </p>
       <h1 style="margin:8px 0 0;font-family:Georgia,serif;font-size:22px;color:#f0e8d8;">
-        ${isCommission ? "New Commission Request" : "New Contact Message"}
+        ${isCommission ? "New Custom Order Request" : "New Contact Message"}
       </h1>
     </div>
     <!-- Body -->
@@ -104,7 +104,7 @@ export async function POST(req: NextRequest) {
     const contactEmail = process.env.CONTACT_EMAIL ?? "hello@lazycattrees.com";
     const isCommission = body.type === "commission";
     const subject = isCommission
-      ? `Commission Request from ${body.name}`
+      ? `Custom Order Request from ${body.name}`
       : `[LazyCat Trees] ${body.subject ?? "Contact"} — from ${body.name}`;
 
     const { error } = await resend.emails.send({
