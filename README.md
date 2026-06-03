@@ -30,6 +30,11 @@ LazyCat Trees presents a boutique storefront for made-to-order cat furniture:
 - Resend
 - Vercel for deployment
 
+## CI/CD
+
+- **CI** — GitHub Actions runs the Jest suite on every push and pull request (see the badge above).
+- **CD** — Deployment is handled automatically by Vercel, which builds and ships every push to `main`.
+
 ## Run Locally
 
 ```bash
