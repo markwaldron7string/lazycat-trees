@@ -1,6 +1,6 @@
-![CI](https://github.com/markwaldron7string/lazycat-trees/actions/workflows/ci.yml/badge.svg)
-
 # LazyCat Trees
+
+![CI](https://github.com/markwaldron7string/lazycat-trees/actions/workflows/ci.yml/badge.svg)
 
 A premium e-commerce website for LazyCat Trees, a Cheyenne, Wyoming maker of handcrafted natural wood cat trees.
 
