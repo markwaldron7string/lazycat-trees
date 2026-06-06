@@ -1,6 +1,9 @@
 ![CI](https://github.com/markwaldron7string/lazycat-trees/actions/workflows/ci.yml/badge.svg)
 ![E2E](https://github.com/markwaldron7string/lazycat-trees/actions/workflows/cypress.yml/badge.svg)
-[![Next.js](https://img.shields.io/badge/Next.js-000000?logo=nextdotjs&logoColor=white)](https://nextjs.org)
+[![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?logo=typescript&logoColor=white)](https://typescriptlang.org)
+[![Three.js](https://img.shields.io/badge/Three.js-000000?logo=threedotjs&logoColor=white)](https://threejs.org)
+[![Stripe](https://img.shields.io/badge/Stripe-008CDD?logo=stripe&logoColor=white)](https://stripe.com)
 [![Vercel](https://img.shields.io/badge/Deployed-Vercel-000000?logo=vercel&logoColor=white)](YOUR_LIVE_URL)
 
 # LazyCat Trees
