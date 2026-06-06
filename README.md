@@ -1,5 +1,7 @@
 ![CI](https://github.com/markwaldron7string/lazycat-trees/actions/workflows/ci.yml/badge.svg)
 ![E2E](https://github.com/markwaldron7string/lazycat-trees/actions/workflows/cypress.yml/badge.svg)
+[![Next.js](https://img.shields.io/badge/Next.js-000000?logo=nextdotjs&logoColor=white)](https://nextjs.org)
+[![Vercel](https://img.shields.io/badge/Deployed-Vercel-000000?logo=vercel&logoColor=white)](YOUR_LIVE_URL)
 
 # LazyCat Trees
 
