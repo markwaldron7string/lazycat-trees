@@ -6,9 +6,9 @@ import { EyebrowLabel } from "@/components/GoldLine";
 import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
-  title: "Custom Order — Design a One-of-a-Kind Cat Tree",
+  title: "Custom Order - Design a One-of-a-Kind Cat Tree",
   description:
-    "Describe your dream cat tree and we'll build it. Mushroom themes, Egyptian hieroglyphs, zebra stripes, celestial designs — any vision welcome. Custom orders from LazyCat Trees.",
+    "Describe your dream cat tree and we'll build it. Mushroom themes, Egyptian hieroglyphs, zebra stripes, celestial designs - any vision welcome. Custom orders from LazyCat Trees.",
 };
 
 export default function CommissionPage() {
@@ -36,7 +36,7 @@ export default function CommissionPage() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
 
         <p className="font-cormorant text-xl leading-relaxed text-stone-400 max-w-2xl mb-16 -mt-4">
-          Every LazyCat tree is already one of a kind — but a custom order takes it
+          Every LazyCat tree is already one of a kind - but a custom order takes it
           further. Tell us your theme, your mood, your inspiration. We&apos;ll bring it to
           life in natural wood, sisal, and carefully chosen carpet.
         </p>
@@ -127,8 +127,8 @@ export default function CommissionPage() {
                 {[
                   { q: "Theme & Mood", a: "What feeling should the tree evoke? Whimsy, grandeur, nature, mystery?" },
                   { q: "Color Palette", a: "Are there specific colors or tones you love?" },
-                  { q: "Scale", a: "How many platforms are you imagining? 2–8 available." },
-                  { q: "Inspiration", a: "Share images, art, or descriptions — anything that captures your vision." },
+                  { q: "Scale", a: "How many platforms are you imagining? 2-8 available." },
+                  { q: "Inspiration", a: "Share images, art, or descriptions - anything that captures your vision." },
                   { q: "Budget", a: "Standard pricing is $1,000 per platform. Custom elements may add cost." },
                 ].map(({ q, a }) => (
                   <li key={q} className="border-b border-stone-800 pb-4 last:border-0 last:pb-0">

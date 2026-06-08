@@ -1,12 +1,26 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import { STATS } from "@/lib/products";
 
 export default function HeroSection() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const handleTimeUpdate = () => {
+      video.playbackRate = video.currentTime < 5 ? 0.5 : 1;
+    };
+    video.addEventListener("timeupdate", handleTimeUpdate);
+    return () => video.removeEventListener("timeupdate", handleTimeUpdate);
+  }, []);
+
   return (
     <section className="relative min-h-[92svh] flex items-center overflow-hidden star-bg">
       <video
+        ref={videoRef}
         className="absolute inset-0 h-full w-full object-cover"
         autoPlay
         muted
@@ -19,7 +33,7 @@ export default function HeroSection() {
         <source src="/videos/hero-compilation.mp4" type="video/mp4" />
       </video>
 
-      {/* Gradient overlay — deep navy left (text readable), transparent right (image shows through) */}
+      {/* Gradient overlay - deep navy left (text readable), transparent right (image shows through) */}
       <div
         className="absolute inset-0 z-10"
         style={{
@@ -46,7 +60,7 @@ export default function HeroSection() {
 
           {/* Subtext */}
           <p className="mt-6 font-cormorant text-xl leading-relaxed text-stone-300 max-w-md">
-            Handcrafted natural wood cat trees — sustainably sourced, made to
+            Handcrafted natural wood cat trees - sustainably sourced, made to
             order, and one-of-a-kind. Built in Wyoming for cats who deserve
             nothing less.
           </p>

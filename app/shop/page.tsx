@@ -3,9 +3,9 @@ import CatTree3DConfigurator from "@/components/CatTree3DConfigurator";
 import ShopGallery from "@/components/ShopGallery";
 
 export const metadata: Metadata = {
-  title: "Shop — Build & Order Your Natural Wood Cat Tree",
+  title: "Shop - Build & Order Your Natural Wood Cat Tree",
   description:
-    "Design your custom LazyCat tree. Choose 2–8 platforms, carpet color, platform themes, and order securely or request a custom quote. Starting at $2,000. Ships nationwide.",
+    "Design your custom LazyCat tree. Choose 2-8 platforms, carpet color, platform themes, and order securely or request a custom quote. Starting at $2,000. Ships nationwide.",
 };
 
 export default function ShopPage() {

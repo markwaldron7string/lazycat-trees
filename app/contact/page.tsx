@@ -6,9 +6,9 @@ import FAQAccordion from "@/components/FAQAccordion";
 import { BRAND } from "@/lib/products";
 
 export const metadata: Metadata = {
-  title: "Contact Us — LazyCat Trees",
+  title: "Contact Us - LazyCat Trees",
   description:
-    "Get in touch with LazyCat Trees. Questions about ordering, shipping, custom trees, or anything else — we're happy to help. Based in Cheyenne, Wyoming.",
+    "Get in touch with LazyCat Trees. Questions about ordering, shipping, custom trees, or anything else - we're happy to help. Based in Cheyenne, Wyoming.",
 };
 
 function MapPinIcon() {
@@ -52,7 +52,7 @@ export default function ContactPage() {
           </h1>
           <p className="mt-5 font-cormorant text-xl leading-relaxed text-stone-400 max-w-xl">
             Questions about ordering, custom trees, shipping, or just want to
-            say hello — we're here and happy to help.
+            say hello - we're here and happy to help.
           </p>
         </div>
 

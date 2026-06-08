@@ -220,7 +220,7 @@ export default function ContactForm({ type = "general", commission = false }: Co
               rows={5}
               value={fields.vision}
               onChange={set("vision")}
-              placeholder="Tell us about your dream tree — themes, motifs, mood, anything that inspires you..."
+              placeholder="Tell us about your dream tree - themes, motifs, mood, anything that inspires you..."
               className={inputClass}
             />
           </div>
@@ -248,7 +248,7 @@ export default function ContactForm({ type = "general", commission = false }: Co
                 type="text"
                 value={fields.platforms}
                 onChange={set("platforms")}
-                placeholder="2–8"
+                placeholder="2-8"
                 className={inputClass}
               />
             </div>

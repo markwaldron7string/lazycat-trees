@@ -36,10 +36,10 @@ export const metadata: Metadata = {
   ),
   title: {
     template: "%s | LazyCat Trees",
-    default: "LazyCat Trees — Handcrafted Natural Wood Cat Trees",
+    default: "LazyCat Trees - Handcrafted Natural Wood Cat Trees",
   },
   description:
-    "Luxury handcrafted cat trees made from sustainably sourced natural wood. Each tree is custom-built to order in Cheyenne, Wyoming. 2–8 platforms, 14 carpet colors.",
+    "Luxury handcrafted cat trees made from sustainably sourced natural wood. Each tree is custom-built to order in Cheyenne, Wyoming. 2-8 platforms, 14 carpet colors.",
   keywords: [
     "natural wood cat tree",
     "handcrafted cat tree",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "LazyCat Trees",
-    title: "LazyCat Trees — Handcrafted Natural Wood Cat Trees",
+    title: "LazyCat Trees - Handcrafted Natural Wood Cat Trees",
     description:
       "Luxury handcrafted cat trees made from sustainably sourced natural wood. Custom-built to order in Cheyenne, Wyoming.",
   },

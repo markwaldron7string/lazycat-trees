@@ -1,5 +1,5 @@
 // ──────────────────────────────────────────────
-// LazyCat Trees — Product Data & Business Constants
+// LazyCat Trees - Product Data & Business Constants
 // ──────────────────────────────────────────────
 
 export const BRAND = {
@@ -173,7 +173,7 @@ export const PLATFORM_SPECS = {
   leadTime: "~30 days",
   shippingRate: "$150 flat rate",
   shipsFrom: "Cheyenne, Wyoming",
-  returnsPolicy: "No returns or exchanges — all trees are made to order",
+  returnsPolicy: "No returns or exchanges - all trees are made to order",
 } as const;
 
 // ── Featured Products (for homepage) ─────────
@@ -237,18 +237,18 @@ export const FEATURED_ITEMS: FeaturedItem[] = [
     slug: "classic",
     name: "Classic Cat Tree",
     platforms: 3,
-    platformRange: "2–3 Platforms",
+    platformRange: "2-3 Platforms",
     image: "/images/product-classic.png",
     badge: "Entry Level",
     description:
-      "A beautifully proportioned 2 or 3-level tree — the perfect introduction to LazyCat craftsmanship.",
+      "A beautifully proportioned 2 or 3-level tree - the perfect introduction to LazyCat craftsmanship.",
     fromPrice: 2000,
   },
   {
     slug: "grand",
     name: "Grand Cat Tree",
     platforms: 5,
-    platformRange: "4–6 Platforms",
+    platformRange: "4-6 Platforms",
     image: "/images/product-grand.png",
     badge: "Most Popular",
     description:
@@ -259,7 +259,7 @@ export const FEATURED_ITEMS: FeaturedItem[] = [
     slug: "pinnacle",
     name: "Pinnacle Cat Tree",
     platforms: 7,
-    platformRange: "7–8 Platforms",
+    platformRange: "7-8 Platforms",
     image: "/images/product-pinnacle.png",
     badge: "Signature",
     description:
@@ -338,12 +338,12 @@ export const FAQ_ITEMS = [
   {
     question: "Can I return or exchange my tree?",
     answer:
-      "We do not accept returns or exchanges. Every tree is custom-built to your specifications — your choice of carpet color, platform count, and any custom requests. Because each piece is one-of-a-kind, all sales are final.",
+      "We do not accept returns or exchanges. Every tree is custom-built to your specifications - your choice of carpet color, platform count, and any custom requests. Because each piece is one-of-a-kind, all sales are final.",
   },
   {
     question: "What types of wood do you use?",
     answer:
-      "We use apple, pine, maple, and madrone — all sustainably sourced through permits to collect downed trees, networking with local landowners, and special customer requests to repurpose trees from their own property.",
+      "We use apple, pine, maple, and madrone - all sustainably sourced through permits to collect downed trees, networking with local landowners, and special customer requests to repurpose trees from their own property.",
   },
   {
     question: "Can I choose my carpet color?",
@@ -353,7 +353,7 @@ export const FAQ_ITEMS = [
   {
     question: "Do you create custom-themed trees?",
     answer:
-      "Yes — this is one of our favorite offerings. We've already built a mushroom-themed tree and have designs in mind for Egyptian Hieroglyphs, Stars & Stripes, Zebra Stripes, and Space/Celestial themes. Visit the Custom Order page to describe your vision.",
+      "Yes - this is one of our favorite offerings. We've already built a mushroom-themed tree and have designs in mind for Egyptian Hieroglyphs, Stars & Stripes, Zebra Stripes, and Space/Celestial themes. Visit the Custom Order page to describe your vision.",
   },
 ];
 
@@ -388,7 +388,7 @@ export const STATS = [
 export const CRAFT_FEATURES = [
   {
     title: "Natural Materials",
-    description: "Chemical-free plywood, reclaimed wood, and natural sisal rope — nothing synthetic.",
+    description: "Chemical-free plywood, reclaimed wood, and natural sisal rope - nothing synthetic.",
   },
   {
     title: "Hand Built",
@@ -400,7 +400,7 @@ export const CRAFT_FEATURES = [
   },
   {
     title: "Award-Winning",
-    description: "Born from a first-prize competition win — artistry validated from the very beginning.",
+    description: "Born from a first-prize competition win - artistry validated from the very beginning.",
   },
 ];
 
@@ -410,7 +410,7 @@ export const HOW_IT_WORKS_STEPS = [
     number: "01",
     title: "Choose",
     description:
-      "Select your number of platforms (2–8), carpet color, platform theme, and any custom touches.",
+      "Select your number of platforms (2-8), carpet color, platform theme, and any custom touches.",
   },
   {
     number: "02",

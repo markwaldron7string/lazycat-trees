@@ -105,7 +105,7 @@ export async function POST(req: NextRequest) {
     const isCommission = body.type === "commission";
     const subject = isCommission
       ? `Custom Order Request from ${body.name}`
-      : `[LazyCat Trees] ${body.subject ?? "Contact"} — from ${body.name}`;
+      : `[LazyCat Trees] ${body.subject ?? "Contact"} - from ${body.name}`;
 
     const { error } = await resend.emails.send({
       from: "LazyCat Trees <noreply@lazycattrees.com>",

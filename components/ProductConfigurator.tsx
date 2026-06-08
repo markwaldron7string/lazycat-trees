@@ -126,7 +126,7 @@ export default function ProductConfigurator() {
               <p className="mt-1 font-playfair text-lg font-semibold text-gold">{tierName}</p>
             </div>
             <p className="font-cormorant text-sm text-stone-400">
-              {formatCurrency(MIN_PLATFORMS * PRICE_PER_PLATFORM)} – {formatCurrency(MAX_PLATFORMS * PRICE_PER_PLATFORM)}
+              {formatCurrency(MIN_PLATFORMS * PRICE_PER_PLATFORM)} - {formatCurrency(MAX_PLATFORMS * PRICE_PER_PLATFORM)}
             </p>
           </div>
 
@@ -260,7 +260,7 @@ export default function ProductConfigurator() {
           className="flex w-full items-center justify-center gap-3 font-jost text-sm font-semibold tracking-widest uppercase px-8 py-5 bg-gold text-stone-950 hover:bg-gold-light transition-colors disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer text-base"
         >
           {loading && <span className="spinner" aria-hidden="true" />}
-          {loading ? "Redirecting to Checkout…" : `Order Now — ${formatCurrency(total)}`}
+          {loading ? "Redirecting to Checkout…" : `Order Now - ${formatCurrency(total)}`}
         </button>
 
         <p className="text-center font-jost text-xs text-stone-500 tracking-wide">
@@ -271,7 +271,7 @@ export default function ProductConfigurator() {
         <div className="border border-stone-800 p-5">
           <p className="eyebrow mb-2">Want Something Unique?</p>
           <p className="font-cormorant text-base text-stone-400 leading-relaxed mb-4">
-            We build custom-themed trees — mushroom caps, hieroglyphs, zebra stripes, and beyond.
+            We build custom-themed trees - mushroom caps, hieroglyphs, zebra stripes, and beyond.
             Tell us your vision and we'll bring it to life.
           </p>
           <a

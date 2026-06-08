@@ -3,7 +3,7 @@ import Link from "next/link";
 import { PLATFORM_NAMES, SHIPPING_FLAT_RATE, getPrice, formatCurrency } from "@/lib/products";
 
 export const metadata: Metadata = {
-  title: "Order Confirmed — LazyCat Trees",
+  title: "Order Confirmed - LazyCat Trees",
   description: "Your LazyCat Tree order has been confirmed. We'll be in touch within 48 hours to begin the build.",
 };
 
@@ -61,7 +61,7 @@ export default async function SuccessPage({
           <p className="eyebrow mb-5">Order Summary</p>
           <dl className="space-y-3">
             {[
-              ["Tree",          `${tierName} — ${platforms} Platforms`],
+              ["Tree",          `${tierName} - ${platforms} Platforms`],
               ["Carpet Color",  color],
               ["Build Time",    "~30 days from order date"],
               ["Shipping",      `${formatCurrency(SHIPPING_FLAT_RATE)} flat rate · Ships from Cheyenne, WY`],

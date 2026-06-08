@@ -146,12 +146,12 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-6 translate-y-7 pb-5 cursor-default flex flex-col items-center gap-4 border-t border-[#1e2e50] pt-8 md:flex-row md:items-center md:justify-between">
           <p className="font-jost text-xs text-stone-500 tracking-widest uppercase">
-            © {year} ★ LazyCat Trees, LLC — Proudly American Made 🇺🇸
+            © {year} ★ LazyCat Trees, LLC - Proudly American Made 🇺🇸
           </p>
 
           <span className="hidden md:block text-stone-600 text-sm">•</span>
 
-          {/* Attribution — centered */}
+          {/* Attribution - centered */}
           <a
             href="https://mark-waldron.com"
             target="_blank"

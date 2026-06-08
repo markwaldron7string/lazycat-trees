@@ -6,7 +6,7 @@ import { PLATFORM_SPECS, WOOD_TYPES } from "@/lib/products";
 import { STORY_IMAGES } from "@/lib/media";
 
 export const metadata: Metadata = {
-  title: "Our Story — From Animal Shelter to Artisan Workshop",
+  title: "Our Story - From Animal Shelter to Artisan Workshop",
   description:
     "How LazyCat Trees was born from love for cats, a competition win, and a passion for natural beauty. Read the story of our founder, our craft, and our mission.",
 };
@@ -63,7 +63,7 @@ export default function StoryPage() {
                   { label: "Materials",  value: "Apple · Pine · Maple · Madrone" },
                   { label: "Lead Time",  value: PLATFORM_SPECS.leadTime },
                   { label: "Shipping",   value: PLATFORM_SPECS.shippingRate },
-                  { label: "Returns",    value: "No returns — made to order" },
+                  { label: "Returns",    value: "No returns - made to order" },
                 ].map(({ label, value }) => (
                   <div key={label} className="border-b border-stone-800 pb-4 last:border-0 last:pb-0">
                     <dt className="font-jost text-xs text-stone-500 tracking-widest uppercase mb-1">
@@ -101,7 +101,7 @@ export default function StoryPage() {
                 <p>
                   A local company called Mad Cat Pet Supply hosted a competition
                   on who could build the best cat tree. I used what is now the
-                  design for LazyCat Trees as my submission — and won first
+                  design for LazyCat Trees as my submission - and won first
                   prize. I fell in love with the natural beauty and artistry in
                   the design. The individuality of the different types of wood
                   and colors used to complement the wood.
@@ -128,7 +128,7 @@ export default function StoryPage() {
               <div className="mt-10 border-l-2 border-gold pl-6 py-1">
                 <p className="font-playfair text-xl italic text-cream leading-relaxed">
                   "I fell in love with the natural beauty and artistry in the
-                  design — born from a competition win, built for a lifetime."
+                  design - born from a competition win, built for a lifetime."
                 </p>
               </div>
             </section>

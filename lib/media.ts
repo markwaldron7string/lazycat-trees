@@ -1,5 +1,5 @@
 // ──────────────────────────────────────────────
-// LazyCat Trees — Site photography
+// LazyCat Trees - Site photography
 // ──────────────────────────────────────────────
 
 export interface SiteImage {
@@ -39,7 +39,7 @@ export const HERO_BACKGROUND: SiteImage = {
   alt: "LazyCat Trees display at an outdoor market with multiple handcrafted cat trees",
 };
 
-/** Homepage featured collection — maps to FEATURED_PRODUCTS ids */
+/** Homepage featured collection - maps to FEATURED_PRODUCTS ids */
 export const FEATURED_PRODUCT_IMAGES: Record<string, SiteImage> = {
   classic: {
     src: "/images/tree-6-level-tan.png",

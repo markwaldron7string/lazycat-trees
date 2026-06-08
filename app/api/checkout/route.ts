@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
           price_data: {
             currency: "usd",
             product_data: {
-              name: `Natural Wood Cat Tree — ${tierName} (${platforms} Platforms, ${color} Carpet)`,
+              name: `Natural Wood Cat Tree - ${tierName} (${platforms} Platforms, ${color} Carpet)`,
               description: `Handcrafted in Cheyenne, Wyoming. Sustainably sourced natural wood, sisal rope, ${designSummary}. ~30 day build time.`,
             },
             unit_amount: price * 100, // cents

@@ -728,7 +728,7 @@ function addOrganicBranchSegment(
   group.add(branch);
 }
 
-/** Short vertical stub where branch meets platform — prevents floating gap. */
+/** Short vertical stub where branch meets platform - prevents floating gap. */
 function addBranchCollar(
   group: THREE.Group,
   x: number,
@@ -808,7 +808,7 @@ function buildTreeBranches(
     addBranchCollar(group, target.x, target.y, target.z, plat.y, branchR, mat);
   });
 
-  // Second support on large top perches only (7–8 levels)
+  // Second support on large top perches only (7-8 levels)
   if (layouts.length >= 7) {
     const top = layouts[layouts.length - 1];
     const lower = layouts.slice(0, -1);
@@ -958,7 +958,7 @@ export default function CatTree3DConfigurator() {
       shadowPlane.receiveShadow = true;
       group.add(shadowPlane);
 
-      // Wood core under the carpeted base (foundation only — not a level)
+      // Wood core under the carpeted base (foundation only - not a level)
       const baseCore = new THREE.Mesh(
         new THREE.CylinderGeometry(BASE_RADIUS * 0.92, BASE_RADIUS, BASE_HEIGHT * 0.55, 28),
         woodMat,
@@ -968,7 +968,7 @@ export default function CatTree3DConfigurator() {
       baseCore.receiveShadow = true;
       group.add(baseCore);
 
-      // Carpeted base pad — visually distinct from elevated perches
+      // Carpeted base pad - visually distinct from elevated perches
       const basePad = new THREE.Mesh(
         new THREE.CylinderGeometry(BASE_RADIUS, BASE_RADIUS * 0.97, BASE_HEIGHT * 0.45, 28),
         baseCarpetMat,
@@ -1187,7 +1187,7 @@ export default function CatTree3DConfigurator() {
           Drag to rotate
         </p>
         <p className="text-center font-jost text-xs text-stone-500 tracking-widest uppercase">
-          All trees are made to order with natural variations — your tree may look different from the preview, but will be just as awesome!
+          All trees are made to order with natural variations - your tree may look different from the preview, but will be just as awesome!
         </p>
       </div>
 
@@ -1221,7 +1221,7 @@ export default function CatTree3DConfigurator() {
               <p className="mt-1 font-playfair text-lg font-semibold text-gold">{tierName}</p>
             </div>
             <p className="font-playfair text-lg text-stone-400">
-              {formatCurrency(MIN_PLATFORMS * PRICE_PER_PLATFORM)} –{" "}
+              {formatCurrency(MIN_PLATFORMS * PRICE_PER_PLATFORM)} -{" "}
               {formatCurrency(MAX_PLATFORMS * PRICE_PER_PLATFORM)}
             </p>
           </div>
@@ -1452,7 +1452,7 @@ export default function CatTree3DConfigurator() {
             href={customOrderHref}
             className="flex w-full items-center justify-center gap-3 rounded-2xl font-jost text-base font-semibold tracking-widest uppercase px-8 py-5 bg-gold text-stone-950 hover:bg-gold-light transition-colors"
           >
-            Request Custom Order — {formatCurrency(total)} Base
+            Request Custom Order - {formatCurrency(total)} Base
           </Link>
         ) : (
           <button
@@ -1461,7 +1461,7 @@ export default function CatTree3DConfigurator() {
             className="flex w-full items-center justify-center gap-3 rounded-2xl font-jost text-base font-semibold tracking-widest uppercase px-8 py-5 bg-gold text-stone-950 hover:bg-gold-light transition-colors disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
           >
             {loading && <span className="spinner" aria-hidden="true" />}
-            {loading ? "Redirecting to Checkout…" : `Order Now — ${formatCurrency(total)}`}
+            {loading ? "Redirecting to Checkout…" : `Order Now - ${formatCurrency(total)}`}
           </button>
         )}
 
@@ -1474,7 +1474,7 @@ export default function CatTree3DConfigurator() {
         <div className="border border-stone-800 p-5">
           <p className="eyebrow mb-2">Want Something Unique?</p>
           <p className="font-cormorant text-base text-stone-400 leading-relaxed mb-4">
-            We build custom-themed trees — mushroom caps, hieroglyphs, zebra stripes, and beyond.
+            We build custom-themed trees - mushroom caps, hieroglyphs, zebra stripes, and beyond.
             Tell us your vision and we&apos;ll bring it to life.
           </p>
           <Link

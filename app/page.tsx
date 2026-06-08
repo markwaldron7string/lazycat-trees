@@ -18,12 +18,12 @@ import HeroSection from "@/components/HeroSection";
 import LifestyleStrip from "@/components/LifestyleStrip";
 
 export const metadata: Metadata = {
-  title: "LazyCat Trees — Handcrafted Natural Wood Cat Trees",
+  title: "LazyCat Trees - Handcrafted Natural Wood Cat Trees",
   description:
     "Where nature becomes art. Luxury handcrafted cat trees made from sustainably sourced natural wood in Cheyenne, Wyoming. Custom-built to order.",
 };
 
-// Photo strip images — 12 images rendered twice for a seamless infinite loop
+// Photo strip images - 12 images rendered twice for a seamless infinite loop
 const PHOTO_STRIP = [
   { src: "/images/product-classic.png",     alt: "Classic natural wood cat tree" },
   { src: "/images/product-grand.png",       alt: "Grand multi-level cat tree" },
@@ -203,8 +203,8 @@ export default function HomePage() {
               </h2>
               <p className="mt-6 font-cormorant text-lg leading-relaxed text-stone-400">
                 Each LazyCat tree begins with a walk in the forest. We source
-                branches from sustainably collected downed trees — apple, pine,
-                maple, and madrone — then cure them for years before a single
+                branches from sustainably collected downed trees - apple, pine,
+                maple, and madrone - then cure them for years before a single
                 cut is made.
               </p>
 
@@ -310,7 +310,7 @@ export default function HomePage() {
           </h2>
           <p className="mt-6 font-cormorant text-xl leading-relaxed text-stone-400 max-w-xl mx-auto">
             We've built mushroom-inspired masterpieces and Egyptian hieroglyph
-            tributes. We can bring any theme to life — just describe your vision
+            tributes. We can bring any theme to life - just describe your vision
             and we'll make it real.
           </p>
 
